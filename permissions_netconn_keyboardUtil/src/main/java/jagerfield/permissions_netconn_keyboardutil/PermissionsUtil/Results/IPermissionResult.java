@@ -9,7 +9,7 @@ public interface IPermissionResult
     ArrayList<String> getGrantedPermissionsList();
     ArrayList<String> getUserDeniedPermissionsList();
     ArrayList<String> getNeverAskAgainPermissionsList();
-    String getPermissionStatus(String key);
+    String getAPermissionReqStatus(String key);
     HashMap<String, String> getAllPermissionsWithStatusMap();
 
 }

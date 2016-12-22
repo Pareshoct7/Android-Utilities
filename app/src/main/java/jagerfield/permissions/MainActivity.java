@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity
     private void getPermissions()
     {
         permissionUtil = new PermissionUtil(this, PERMISSIONS_ARRAY);
-        IPermissionResult result = permissionUtil.checkPermissionsStatus();
+        IPermissionResult result = permissionUtil.getPermissionReqResult();
 
         if (result.arePermissionsGranted())
         {
@@ -236,17 +236,16 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults)
     {
-        if (requestCode == permissionUtil.getPermissionsReq())
+        if (requestCode == permissionUtil.getPermissionsReqFlag())
         {
             IPermissionResult result = null;
-            result= permissionUtil.checkPermissionsStatus();
+            result= permissionUtil.getPermissionReqResult();
             if (result == null)
             {
                 return;
             }
 
             setUserInterface(result);
-            String value = result.getPermissionStatus(Manifest.permission.RECORD_AUDIO);
 
             String str = "";
         }

@@ -27,7 +27,7 @@ public class PermissionUtil
             permissionsArray = new String[]{permissionsItem};
         }
 
-    public int getPermissionsReq() {
+    public int getPermissionsReqFlag() {
         return PERMISSIONS_REQ;
     }
 
@@ -72,7 +72,7 @@ public class PermissionUtil
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public IPermissionResult checkPermissionsStatus()
+    public IPermissionResult getPermissionReqResult()
     {
         PermissionsResults permissionsResults = new PermissionsResults();
 

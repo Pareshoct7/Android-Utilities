@@ -49,7 +49,7 @@ public class PermissionsResults implements IPermissionResult
     }
 
     @Override
-    public String getPermissionStatus(String key)
+    public String getAPermissionReqStatus(String key)
     {
         String result = allPermissionsMap.get(key);
         return result;
