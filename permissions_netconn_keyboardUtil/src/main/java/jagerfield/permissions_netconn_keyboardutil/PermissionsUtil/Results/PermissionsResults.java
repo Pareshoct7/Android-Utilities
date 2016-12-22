@@ -1,0 +1,67 @@
+package jagerfield.permissions_netconn_keyboardutil.PermissionsUtil.Results;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class PermissionsResults implements IPermissionResult
+{
+    public static final String APPROVED = "APPROVED";
+    private boolean permissionStatus = false;
+    private ArrayList<String> neverAskAgainPermissionsList = new ArrayList<>();
+    private ArrayList<String> userDeniedPermissionsList = new ArrayList<>();
+    private ArrayList<String> grantedPermissionsList = new ArrayList<>();
+    private HashMap<String, String> allPermissionsMap = new HashMap<>();
+
+    public void addItemNeverAskAgainList(String item)
+    {
+        if (item != null && !item.isEmpty()) {
+            neverAskAgainPermissionsList.add(item);
+        }
+    }
+
+    @Override
+    public ArrayList<String> getUserDeniedPermissionsList() {
+        return userDeniedPermissionsList;
+    }
+
+    public void addItemUserDeniedPermissionsList(String item) {
+        if (item != null && !item.isEmpty()) {
+            userDeniedPermissionsList.add(item);
+        }
+    }
+
+    public boolean arePermissionsGranted() {
+        return permissionStatus;
+    }
+
+    public void setGetPermissionStatus(boolean status) {
+        permissionStatus = status;
+    }
+
+    @Override
+    public ArrayList<String> getGrantedPermissionsList() {
+        return grantedPermissionsList;
+    }
+
+    @Override
+    public ArrayList<String> getNeverAskAgainPermissionsList() {
+        return neverAskAgainPermissionsList;
+    }
+
+    public void addItemGrantedPermissionsList(String item)
+    {
+        if (item != null && !item.isEmpty()) {
+            grantedPermissionsList.add(item);
+        }
+    }
+
+    @Override
+    public HashMap<String, String> getAllPermissionsWithStatusMap() {
+        return allPermissionsMap;
+    }
+
+    public void addItemAllPermissionsMap(String name, String type)
+    {
+        allPermissionsMap.put(name, type);
+    }
+}
