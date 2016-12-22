@@ -48,6 +48,13 @@ public class PermissionsResults implements IPermissionResult
         return neverAskAgainPermissionsList;
     }
 
+    @Override
+    public String getPermissionStatus(String key)
+    {
+        String result = allPermissionsMap.get(key);
+        return result;
+    }
+
     public void addItemGrantedPermissionsList(String item)
     {
         if (item != null && !item.isEmpty()) {

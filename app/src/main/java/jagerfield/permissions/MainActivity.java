@@ -12,11 +12,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import jagerfield.permissions_netconn_keyboardutil.NetworkUtil.NetworkUtil;
 import jagerfield.permissions_netconn_keyboardutil.PermissionsUtil.PermissionUtil;
 import jagerfield.permissions_netconn_keyboardutil.PermissionsUtil.Results.IPermissionResult;
-import jagerfield.permissions_netconn_keyboardutil.SoftKeyboradUtil.SoftKeyboardUtil;
 
 import java.util.ArrayList;
 
@@ -240,14 +238,17 @@ public class MainActivity extends AppCompatActivity
     {
         if (requestCode == permissionUtil.getPermissionsReq())
         {
-            IPermissionResult result = permissionUtil.checkPermissionsStatus();
+            IPermissionResult result = null;
+            result= permissionUtil.checkPermissionsStatus();
+            if (result == null)
+            {
+                return;
+            }
 
             setUserInterface(result);
+            String value = result.getPermissionStatus(Manifest.permission.RECORD_AUDIO);
 
-            for (int i = 0; i <result.getAllPermissionsWithStatusMap().size() ; i++)
-            {
-               String str = "";
-            }
+            String str = "";
         }
     }
 }

@@ -5,11 +5,9 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import java.util.ArrayList;
-
 import jagerfield.permissions_netconn_keyboardutil.C;
 import jagerfield.permissions_netconn_keyboardutil.PermissionsUtil.Results.IPermissionResult;
 import jagerfield.permissions_netconn_keyboardutil.PermissionsUtil.Results.PermissionsResults;
-import jagerfield.permissions_netconn_keyboardutil.PermissionsUtil.Results.ResultTypes;
 
 public class PermissionUtil
 {
