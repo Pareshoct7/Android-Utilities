@@ -1,4 +1,4 @@
-package jagerfield.permissions_netconn_keyboardutil;
+package jagerfield.permissions_and_utilities_library;
 
 /**
  * Created by Sense on 2016-12-22.

@@ -1,13 +1,13 @@
-package jagerfield.permissions_netconn_keyboardutil.PermissionsUtil;
+package jagerfield.permissions_and_utilities_library.PermissionsUtil;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import java.util.ArrayList;
-import jagerfield.permissions_netconn_keyboardutil.C;
-import jagerfield.permissions_netconn_keyboardutil.PermissionsUtil.Results.IPermissionResult;
-import jagerfield.permissions_netconn_keyboardutil.PermissionsUtil.Results.PermissionsResults;
+import jagerfield.permissions_and_utilities_library.C;
+import jagerfield.permissions_and_utilities_library.PermissionsUtil.Results.IPermissionResult;
+import jagerfield.permissions_and_utilities_library.PermissionsUtil.Results.PermissionsResults;
 
 public class PermissionUtil
 {
@@ -72,7 +72,7 @@ public class PermissionUtil
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public IPermissionResult getPermissionReqResult()
+    public IPermissionResult checkPermissionsResults()
     {
         PermissionsResults permissionsResults = new PermissionsResults();
 

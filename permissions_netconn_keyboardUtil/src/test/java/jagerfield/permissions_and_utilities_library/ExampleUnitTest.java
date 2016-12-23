@@ -1,4 +1,4 @@
-package jagerfield.permissions_netconn_keyboardutil;
+package jagerfield.permissions_and_utilities_library;
 
 import org.junit.Test;
 

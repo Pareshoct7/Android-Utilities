@@ -1,4 +1,4 @@
-package jagerfield.permissions_netconn_keyboardutil.NetworkUtil;
+package jagerfield.permissions_and_utilities_library.NetworkUtil;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -10,7 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import jagerfield.permissions_netconn_keyboardutil.C;
+import jagerfield.permissions_and_utilities_library.C;
 
 public class NetworkUtil
 {

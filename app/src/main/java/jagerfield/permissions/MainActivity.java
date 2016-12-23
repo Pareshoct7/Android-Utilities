@@ -6,15 +6,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import jagerfield.permissions_netconn_keyboardutil.NetworkUtil.NetworkUtil;
-import jagerfield.permissions_netconn_keyboardutil.PermissionsUtil.PermissionUtil;
-import jagerfield.permissions_netconn_keyboardutil.PermissionsUtil.Results.IPermissionResult;
+import jagerfield.permissions_and_utilities_library.NetworkUtil.NetworkUtil;
+import jagerfield.permissions_and_utilities_library.PermissionsUtil.PermissionUtil;
+import jagerfield.permissions_and_utilities_library.PermissionsUtil.Results.IPermissionResult;
 
 import java.util.ArrayList;
 
@@ -25,7 +24,6 @@ public class MainActivity extends AppCompatActivity
     private TextView tv_requestNeverAskAgainPermissions;
     private TextView tv_neverAskAgainPermissionsList;
     private TextView tv_deniedPermissionsList;
-    private CoordinatorLayout coordinatorLayout;
     private Button bt_getDeniedPermissions;
     private Button bt_openSettings;
     private Button bt_checkPermissions;
@@ -49,7 +47,6 @@ public class MainActivity extends AppCompatActivity
 
     private void initiateAppViews()
     {
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.activity_main);
         tv_getting_permission = (TextView) findViewById(R.id.tv_getting_permission);
         tv_requestPermissions = (TextView) findViewById(R.id.tv_requestPermissions);
         tv_requestNeverAskAgainPermissions = (TextView) findViewById(R.id.tv_requestNeverAskAgainPermissions);
@@ -89,7 +86,7 @@ public class MainActivity extends AppCompatActivity
     private void getPermissions()
     {
         permissionUtil = new PermissionUtil(this, PERMISSIONS_ARRAY);
-        IPermissionResult result = permissionUtil.getPermissionReqResult();
+        IPermissionResult result = permissionUtil.checkPermissionsResults();
 
         if (result.arePermissionsGranted())
         {
@@ -239,7 +236,7 @@ public class MainActivity extends AppCompatActivity
         if (requestCode == permissionUtil.getPermissionsReqFlag())
         {
             IPermissionResult result = null;
-            result= permissionUtil.getPermissionReqResult();
+            result= permissionUtil.checkPermissionsResults();
             if (result == null)
             {
                 return;

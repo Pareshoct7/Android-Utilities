@@ -1,11 +1,7 @@
-package jagerfield.permissions_netconn_keyboardutil.SoftKeyboradUtil;
+package jagerfield.permissions_and_utilities_library.SoftKeyboradUtil;
 
 import android.app.Activity;
 import android.view.inputmethod.InputMethodManager;
-
-/**
- * Created by Sense on 2016-12-22.
- */
 
 public class SoftKeyboardUtil
 {
