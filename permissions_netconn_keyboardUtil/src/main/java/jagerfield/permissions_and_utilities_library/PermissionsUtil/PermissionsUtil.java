@@ -7,7 +7,6 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import jagerfield.permissions_and_utilities_library.C;
 import jagerfield.permissions_and_utilities_library.PermissionsUtil.Results.IPermissionResult;
@@ -128,7 +127,8 @@ public class PermissionsUtil
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
             {
-                if (activity.checkSelfPermission(permissionsArray[i]) == PackageManager.PERMISSION_DENIED)
+                int value = activity.checkSelfPermission(permissionsArray[i]);
+                if (value == PackageManager.PERMISSION_DENIED)
                 {
                     if (activity.shouldShowRequestPermissionRationale(permissionsArray[i]))
                     {
@@ -157,8 +157,19 @@ public class PermissionsUtil
             }
             else
             {
-                permissionsResults.addItemGrantedPermissionsList(permissionsArray[i]);
-                permissionsResults.addItemAllPermissionsMap(permissionsArray[i], C.GRANTED);
+                boolean result = activity.checkCallingOrSelfPermission(permissionsArray[i]) == PackageManager.PERMISSION_GRANTED;
+                if (result)
+                {
+                    permissionsResults.addItemGrantedPermissionsList(permissionsArray[i]);
+                    permissionsResults.addItemAllPermissionsMap(permissionsArray[i], C.GRANTED);
+                }
+                else
+                {
+                    permissionsResults.setGetPermissionStatus(false);
+                    permissionsResults.addItemMissingInManifest_SdkLessThanM(permissionsArray[i]);
+                    permissionsResults.addItemAllPermissionsMap(permissionsArray[i], C.MISSING_IN_MAIFEST);
+                }
+
             }
 
         }

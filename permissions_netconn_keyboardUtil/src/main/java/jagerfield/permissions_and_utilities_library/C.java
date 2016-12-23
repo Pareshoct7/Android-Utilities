@@ -9,6 +9,7 @@ public class C
     public static final String GRANTED = "GRANTED";
     public static final String USER_DENIED = "USER_DENIED";
     public static final String NEVER_SHOW_AGAIN = "NEVER_SHOW_AGAIN";
+    public static final String MISSING_IN_MAIFEST = "MISSING_IN_MAIFEST";
     public static final String TAG = "UtilsLib";
 
     public static final int TYPE_WIFI = 1;

@@ -10,6 +10,7 @@ public class PermissionsResults implements IPermissionResult
     private ArrayList<String> neverAskAgainPermissionsList = new ArrayList<>();
     private ArrayList<String> userDeniedPermissionsList = new ArrayList<>();
     private ArrayList<String> grantedPermissionsList = new ArrayList<>();
+    private ArrayList<String> missingInManifest_SdkLessThanM = new ArrayList<>();
     private HashMap<String, String> allPermissionsMap = new HashMap<>();
 
     public void addItemNeverAskAgainList(String item)
@@ -70,5 +71,17 @@ public class PermissionsResults implements IPermissionResult
     public void addItemAllPermissionsMap(String name, String type)
     {
         allPermissionsMap.put(name, type);
+    }
+
+    public ArrayList<String> getMissingInManifest_SdkLessThanM()
+    {
+        return missingInManifest_SdkLessThanM;
+    }
+
+    public void addItemMissingInManifest_SdkLessThanM(String item)
+    {
+        if (item != null && !item.isEmpty()) {
+            missingInManifest_SdkLessThanM.add(item);
+        }
     }
 }

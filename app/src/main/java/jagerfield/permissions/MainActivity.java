@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +15,6 @@ import android.widget.TextView;
 import jagerfield.permissions_and_utilities_library.NetworkUtil.NetworkUtil;
 import jagerfield.permissions_and_utilities_library.PermissionsUtil.PermissionsUtil;
 import jagerfield.permissions_and_utilities_library.PermissionsUtil.Results.IPermissionResult;
-
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
@@ -136,22 +136,34 @@ public class MainActivity extends AppCompatActivity
         {
             msg = PERMISSIONS_GRANTED;
             tv_getting_permission.setText(msg);
-            tv_getting_permission.setTextColor(getColor(R.color.green));
+            tv_getting_permission.setTextColor(getThisColor(R.color.green));
             bt_checkPermissions.setVisibility(View.VISIBLE);
         }
         else if (!gotPermissions && !permissionsResults.getNeverAskAgainPermissionsList().isEmpty() && permissionsResults.getUserDeniedPermissionsList().isEmpty())
         {
             msg = PERMISSIONS_MISSING;
             tv_getting_permission.setText(msg);
-            tv_getting_permission.setTextColor(getColor(R.color.red));
+            tv_getting_permission.setTextColor(getThisColor(R.color.red));
             bt_checkPermissions.setVisibility(View.VISIBLE);
         }
         else if (!gotPermissions && !permissionsResults.getUserDeniedPermissionsList().isEmpty())
         {
             msg = PERMISSIONS_MISSING;
             tv_getting_permission.setText(msg);
-            tv_getting_permission.setTextColor(getColor(R.color.red));
+            tv_getting_permission.setTextColor(getThisColor(R.color.red));
             bt_checkPermissions.setVisibility(View.GONE);
+        }
+    }
+
+    private int getThisColor(int color)
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        {
+            return getColor(color);
+        }
+        else
+        {
+            return getResources().getColor(color);
         }
     }
 

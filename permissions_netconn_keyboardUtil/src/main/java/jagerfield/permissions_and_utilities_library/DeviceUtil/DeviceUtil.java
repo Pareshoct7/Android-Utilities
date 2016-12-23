@@ -49,7 +49,6 @@ import jagerfield.permissions_and_utilities_library.PermissionsUtil.PermissionsU
 
 public class DeviceUtil extends C
 {
-
     private final String NOT_FOUND_VAL = "unknown";
 
     private Activity activity;
@@ -350,7 +349,8 @@ public class DeviceUtil extends C
 
     /* Id Info: */
     @SuppressWarnings("MissingPermission")
-    public final String getBluetoothMAC() {
+    public final String getBluetoothMAC()
+    {
         if(!permissionsUtil.isPermissionGranted(Manifest.permission.BLUETOOTH))
               throw new RuntimeException("Access Bluetooth permission not granted!");
 
