@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import jagerfield.permissions_and_utilities_library.NetworkUtil.NetworkUtil;
-import jagerfield.permissions_and_utilities_library.PermissionsUtil.PermissionUtil;
+import jagerfield.permissions_and_utilities_library.PermissionsUtil.PermissionsUtil;
 import jagerfield.permissions_and_utilities_library.PermissionsUtil.Results.IPermissionResult;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity
     private Button bt_getDeniedPermissions;
     private Button bt_openSettings;
     private Button bt_checkPermissions;
-    private PermissionUtil permissionUtil;
+    private PermissionsUtil permissionsUtil;
 
     public String PERMISSIONS_MISSING = "Permissions are missing";
     public String PERMISSIONS_GRANTED = "All Permission Available";
@@ -85,8 +85,8 @@ public class MainActivity extends AppCompatActivity
 
     private void getPermissions()
     {
-        permissionUtil = new PermissionUtil(this, PERMISSIONS_ARRAY);
-        IPermissionResult result = permissionUtil.checkPermissionsResults();
+        permissionsUtil = new PermissionsUtil(this, PERMISSIONS_ARRAY);
+        IPermissionResult result = permissionsUtil.checkPermissionsResults();
 
         if (result.arePermissionsGranted())
         {
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity
         }
         else
         {
-            permissionUtil.getPermissions();
+            permissionsUtil.getPermissions();
         }
 
         NetworkUtil network = new NetworkUtil();
@@ -228,15 +228,26 @@ public class MainActivity extends AppCompatActivity
         Uri uri = Uri.parse("package:" + context.getPackageName());
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, uri);
         context.startActivity(intent);
+
+
+//        final Intent i = new Intent();
+//        i.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+//        i.addCategory(Intent.CATEGORY_DEFAULT);
+//        i.setData(Uri.parse("package:" + context.getPackageName()));
+//        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+//        i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+//        context.startActivity(i);
+
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults)
     {
-        if (requestCode == permissionUtil.getPermissionsReqFlag())
+        if (requestCode == permissionsUtil.getPermissionsReqFlag())
         {
             IPermissionResult result = null;
-            result= permissionUtil.checkPermissionsResults();
+            result= permissionsUtil.checkPermissionsResults();
             if (result == null)
             {
                 return;

@@ -14,44 +14,52 @@ import jagerfield.permissions_and_utilities_library.C;
 
 public class NetworkUtil
 {
-    private String tag = "Network";
-
     /* Gets internet connectivity status and also pings to make sure it is available.
     *
     * */
+
     public int checkInternet(Context context)
     {
-        int conn = isNetConnected(context);
-        int status = 0;
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        if (activeNetwork == null) return C.NOT_FOUND_VAL;
+
+        int conn = activeNetwork.getType();
+        int type = C.NOT_FOUND_VAL;
 
         if (conn == C.TYPE_WIFI)
         {
-            status = C.TYPE_WIFI;
-            Log.i(tag, "Internet TYPE_WIFI");
+            type = C.TYPE_WIFI;
+            Log.i(C.TAG, "Internet TYPE_WIFI");
+        }
+        else if (conn == C.TYPE_WIMAX)
+        {
+            type = C.TYPE_WIMAX;
+            Log.i(C.TAG, "Internet TYPE_WIMAX");
         }
         else if (conn == C.TYPE_MOBILE)
         {
-            status = C.TYPE_MOBILE;
-            Log.i(tag, "Internet TYPE_MOBILE");
+            type = C.TYPE_MOBILE;
+            Log.i(C.TAG, "Internet TYPE_MOBILE");
         }
         else if (conn == C.TYPE_NOT_CONNECTED)
         {
-            status = C.TYPE_NOT_CONNECTED;
-            Log.i(tag, "Internet TYPE_NOT_CONNECTED");
+            type = C.TYPE_NOT_CONNECTED;
+            Log.i(C.TAG, "Internet TYPE_NOT_CONNECTED");
         }
 
         boolean result = pingGoogle(context);
 
-        if(result && (status==C.TYPE_WIFI || status==C.TYPE_MOBILE))
+        if(result && (type==C.TYPE_WIFI || type==C.TYPE_MOBILE))
         {
-            return status;
+            return type;
         }
         else if(!result)
         {
-            return status = C.TYPE_NOT_CONNECTED;
+            return type = C.TYPE_NOT_CONNECTED;
         }
 
-        return status;
+        return type;
     }
 
 
@@ -76,7 +84,7 @@ public class NetworkUtil
                 }
                 else
                 {
-                    Log.i(tag, "Failed to ping Google " + i + " times");
+                    Log.i(C.TAG, "Failed to ping Google " + i + " times");
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
@@ -91,22 +99,6 @@ public class NetworkUtil
         }
 
         return result;
-    }
-
-    private int isNetConnected(Context context)
-    {
-        ConnectivityManager cm = (ConnectivityManager) context
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        if (null != activeNetwork) {
-            if(activeNetwork.getType() == ConnectivityManager.TYPE_WIFI)
-                return C.TYPE_WIFI;
-
-            if(activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE)
-                return C.TYPE_MOBILE;
-        }
-        return C.TYPE_NOT_CONNECTED;
     }
 
     private static boolean isNetAvailable(Context context) {
