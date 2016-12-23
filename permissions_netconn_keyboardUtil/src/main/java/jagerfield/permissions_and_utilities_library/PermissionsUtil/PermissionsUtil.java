@@ -105,8 +105,8 @@ public class PermissionsUtil
 
         if (!result)
         {
-            Toast.makeText(activity, "The " + permission +" is not given", Toast.LENGTH_SHORT).show();
-            Log.e(C.TAG, permission + " is not provided");
+            Toast.makeText(activity, permission +" is not available", Toast.LENGTH_SHORT).show();
+            Log.e(C.TAG, permission + " is not available");
         }
 
         return result;
@@ -158,6 +158,7 @@ public class PermissionsUtil
             else
             {
                 boolean result = activity.checkCallingOrSelfPermission(permissionsArray[i]) == PackageManager.PERMISSION_GRANTED;
+
                 if (result)
                 {
                     permissionsResults.addItemGrantedPermissionsList(permissionsArray[i]);
