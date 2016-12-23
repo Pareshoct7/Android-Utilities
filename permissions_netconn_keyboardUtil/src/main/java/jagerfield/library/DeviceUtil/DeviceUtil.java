@@ -1,4 +1,4 @@
-package jagerfield.permissions_and_utilities_library.DeviceUtil;
+package jagerfield.library.DeviceUtil;
 
 import android.Manifest;
 import android.accounts.Account;
@@ -44,8 +44,8 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-import jagerfield.permissions_and_utilities_library.C;
-import jagerfield.permissions_and_utilities_library.PermissionsUtil.PermissionsUtil;
+import jagerfield.library.C;
+import jagerfield.library.PermissionsUtil.PermissionsUtil;
 
 public class DeviceUtil extends C
 {

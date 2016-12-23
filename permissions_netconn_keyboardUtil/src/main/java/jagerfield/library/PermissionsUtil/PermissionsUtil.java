@@ -1,42 +1,40 @@
-package jagerfield.permissions_and_utilities_library.PermissionsUtil;
+package jagerfield.library.PermissionsUtil;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 import java.util.ArrayList;
-import jagerfield.permissions_and_utilities_library.C;
-import jagerfield.permissions_and_utilities_library.PermissionsUtil.Results.IPermissionResult;
-import jagerfield.permissions_and_utilities_library.PermissionsUtil.Results.PermissionsResults;
+import jagerfield.library.C;
+import jagerfield.library.PermissionsUtil.Results.ICheckPermissionResult;
+import jagerfield.library.PermissionsUtil.Results.PermissionsResults;
 
-public class PermissionsUtil
+public class PermissionsUtil implements IPermissionUtil
 {
     private Activity activity;
     private String[] permissionsArray;
     private final int PERMISSIONS_REQ = 1009989;
-
-    public PermissionsUtil(Activity activity, String[] permissionsArray)
-    {
-        this.activity = activity;
-        this.permissionsArray = permissionsArray;
-    }
-
-    public PermissionsUtil(Activity activity, String permissionsItem)
-        {
-            this.activity = activity;
-            permissionsArray = new String[]{permissionsItem};
-        }
-
 
     public PermissionsUtil(Activity activity)
     {
         this.activity = activity;
     }
 
-    public void getPermissions(String permissionsItem)
+    public static IPermissionUtil getInstance(Activity activity)
+    {
+        IPermissionUtil obj = new PermissionsUtil(activity);
+        return obj;
+    }
+
+    @Override
+    public int getPermissionsReqFlag() {
+        return PERMISSIONS_REQ;
+    }
+
+    @Override
+    public synchronized void makePermissionRequest(String permissionsItem)
     {
         if (permissionsItem==null || permissionsItem.isEmpty() )
         {
@@ -44,18 +42,20 @@ public class PermissionsUtil
             return;
         }
 
-        permissionsArray = new String[]{permissionsItem};
-        getPermissions();
+        makePermissionsRequests(new String[]{permissionsItem});
     }
 
-    public int getPermissionsReqFlag() {
-        return PERMISSIONS_REQ;
-    }
-
-    public void getPermissions()
+    @Override
+    public synchronized void makePermissionsRequests(String[] permissionsArray)
     {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
         {
+            return;
+        }
+
+        if (permissionsArray==null || permissionsArray.length==0)
+        {
+            Toast.makeText(activity, "The given permission request is incorrect", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -92,6 +92,7 @@ public class PermissionsUtil
         }
     }
 
+    @Override
     public synchronized final boolean isPermissionGranted(String permission)
     {
         boolean result = false;
@@ -112,7 +113,8 @@ public class PermissionsUtil
         return result;
     }
 
-    public synchronized IPermissionResult checkPermissionsResults()
+    @Override
+    public synchronized ICheckPermissionResult checkPermissionsResults(String[] permissionsArray)
     {
         PermissionsResults permissionsResults = new PermissionsResults();
 

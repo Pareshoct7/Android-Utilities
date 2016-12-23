@@ -1,9 +1,9 @@
-package jagerfield.permissions_and_utilities_library.PermissionsUtil.Results;
+package jagerfield.library.PermissionsUtil.Results;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class PermissionsResults implements IPermissionResult
+public class PermissionsResults implements ICheckPermissionResult
 {
     public static final String APPROVED = "APPROVED";
     private boolean permissionStatus = false;

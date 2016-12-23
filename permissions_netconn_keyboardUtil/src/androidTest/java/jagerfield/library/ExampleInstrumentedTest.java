@@ -1,4 +1,4 @@
-package jagerfield.permissions_and_utilities_library;
+package jagerfield.library;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

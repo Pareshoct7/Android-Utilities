@@ -1,4 +1,4 @@
-package jagerfield.permissions_and_utilities_library.NetworkUtil;
+package jagerfield.library.NetworkUtil;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -10,15 +10,24 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import jagerfield.permissions_and_utilities_library.C;
+import jagerfield.library.C;
 
 public class NetworkUtil
 {
+    public NetworkUtil()
+    {
+
+    }
+
+    public static NetworkUtil getInstance()
+    {
+        return new NetworkUtil();
+    }
+
     /* Gets internet connectivity status and also pings to make sure it is available.
     *
-    * */
-
-    public int checkInternet(Context context)
+    */
+    public int getInternetStatus(Context context)
     {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -101,7 +110,8 @@ public class NetworkUtil
         return result;
     }
 
-    private static boolean isNetAvailable(Context context) {
+    private static boolean isNetAvailable(Context context)
+    {
         boolean connected = false;
         final ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         final NetworkInfo newtWorkInfo = connectivityManager.getActiveNetworkInfo();

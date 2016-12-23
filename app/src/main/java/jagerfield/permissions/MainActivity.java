@@ -12,9 +12,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import jagerfield.permissions_and_utilities_library.NetworkUtil.NetworkUtil;
-import jagerfield.permissions_and_utilities_library.PermissionsUtil.PermissionsUtil;
-import jagerfield.permissions_and_utilities_library.PermissionsUtil.Results.IPermissionResult;
+
+import jagerfield.library.AppUtilities;
+import jagerfield.library.PermissionsUtil.IPermissionUtil;
+import jagerfield.utilities.R;
+import jagerfield.library.NetworkUtil.NetworkUtil;
+import jagerfield.library.PermissionsUtil.PermissionsUtil;
+import jagerfield.library.PermissionsUtil.Results.ICheckPermissionResult;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
@@ -27,7 +31,7 @@ public class MainActivity extends AppCompatActivity
     private Button bt_getDeniedPermissions;
     private Button bt_openSettings;
     private Button bt_checkPermissions;
-    private PermissionsUtil permissionsUtil;
+    private IPermissionUtil permissionsUtil;
 
     public String PERMISSIONS_MISSING = "Permissions are missing";
     public String PERMISSIONS_GRANTED = "All Permission Available";
@@ -85,8 +89,9 @@ public class MainActivity extends AppCompatActivity
 
     private void getPermissions()
     {
-        permissionsUtil = new PermissionsUtil(this, PERMISSIONS_ARRAY);
-        IPermissionResult result = permissionsUtil.checkPermissionsResults();
+        permissionsUtil = AppUtilities.getPermissionUtil(this);
+
+        ICheckPermissionResult result = permissionsUtil.checkPermissionsResults(PERMISSIONS_ARRAY);
 
         if (result.arePermissionsGranted())
         {
@@ -94,17 +99,17 @@ public class MainActivity extends AppCompatActivity
         }
         else
         {
-            permissionsUtil.getPermissions();
+            permissionsUtil.makePermissionsRequests(PERMISSIONS_ARRAY);
         }
 
         NetworkUtil network = new NetworkUtil();
 
-        int i = network.checkInternet(this);
+        int i = network.getInternetStatus(this);
 
         String str = "";
     }
 
-    private void setUserInterface(IPermissionResult permissionsResults)
+    private void setUserInterface(ICheckPermissionResult permissionsResults)
     {
         if (permissionsResults ==null)
         {
@@ -127,7 +132,7 @@ public class MainActivity extends AppCompatActivity
         manageNeverAskPermissionsViews(permissionsResults);
     }
 
-    private void managePermissionStatusTitle(IPermissionResult permissionsResults)
+    private void managePermissionStatusTitle(ICheckPermissionResult permissionsResults)
     {
         String msg = "";
         boolean gotPermissions = permissionsResults.arePermissionsGranted();
@@ -167,7 +172,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void manageDeniedPermissionsViews(IPermissionResult results)
+    private void manageDeniedPermissionsViews(ICheckPermissionResult results)
     {
         int status = View.GONE;
         boolean gotPermissions = results.arePermissionsGranted();
@@ -189,7 +194,7 @@ public class MainActivity extends AppCompatActivity
         bt_getDeniedPermissions.setVisibility(status);
     }
 
-    private void manageNeverAskPermissionsViews(IPermissionResult results)
+    private void manageNeverAskPermissionsViews(ICheckPermissionResult results)
     {
         int status = View.GONE;
         boolean gotPermissions = results.arePermissionsGranted();
@@ -258,8 +263,8 @@ public class MainActivity extends AppCompatActivity
     {
         if (requestCode == permissionsUtil.getPermissionsReqFlag())
         {
-            IPermissionResult result = null;
-            result= permissionsUtil.checkPermissionsResults();
+            ICheckPermissionResult result = null;
+            result= permissionsUtil.checkPermissionsResults(PERMISSIONS_ARRAY);
             if (result == null)
             {
                 return;

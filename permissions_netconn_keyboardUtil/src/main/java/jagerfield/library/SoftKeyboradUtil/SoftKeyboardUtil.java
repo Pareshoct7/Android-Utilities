@@ -1,11 +1,21 @@
-package jagerfield.permissions_and_utilities_library.SoftKeyboradUtil;
+package jagerfield.library.SoftKeyboradUtil;
 
 import android.app.Activity;
 import android.view.inputmethod.InputMethodManager;
 
+import jagerfield.library.NetworkUtil.NetworkUtil;
+
 public class SoftKeyboardUtil
 {
-    public static void setSkb(Activity activity, boolean mode)
+    public SoftKeyboardUtil() {
+    }
+
+    public static SoftKeyboardUtil getInstance()
+    {
+        return new SoftKeyboardUtil();
+    }
+
+    public void setSkb(Activity activity, boolean mode)
     {
         if (activity == null)
         {

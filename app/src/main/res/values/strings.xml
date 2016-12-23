@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Permissions</string>
+    <string name="app_name">App Utilities</string>
     <string name="approve_permissions_msg">Please approve permissionsArray.</string>
 </resources>
