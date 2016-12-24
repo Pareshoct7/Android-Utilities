@@ -11,10 +11,9 @@ import jagerfield.library.C;
 import jagerfield.library.PermissionsUtil.Results.ICheckPermissionResult;
 import jagerfield.library.PermissionsUtil.Results.PermissionsResults;
 
-public class PermissionsUtil implements IPermissionUtil
+public class PermissionsUtil
 {
     private Activity activity;
-    private String[] permissionsArray;
     private final int PERMISSIONS_REQ = 1009989;
 
     public PermissionsUtil(Activity activity)
@@ -22,18 +21,16 @@ public class PermissionsUtil implements IPermissionUtil
         this.activity = activity;
     }
 
-    public static IPermissionUtil getInstance(Activity activity)
+    public static PermissionsUtil getInstance(Activity activity)
     {
-        IPermissionUtil obj = new PermissionsUtil(activity);
+        PermissionsUtil obj = new PermissionsUtil(activity);
         return obj;
     }
 
-    @Override
     public int getPermissionsReqFlag() {
         return PERMISSIONS_REQ;
     }
 
-    @Override
     public synchronized void makePermissionRequest(String permissionsItem)
     {
         if (permissionsItem==null || permissionsItem.isEmpty() )
@@ -45,7 +42,6 @@ public class PermissionsUtil implements IPermissionUtil
         makePermissionsRequests(new String[]{permissionsItem});
     }
 
-    @Override
     public synchronized void makePermissionsRequests(String[] permissionsArray)
     {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
@@ -92,7 +88,6 @@ public class PermissionsUtil implements IPermissionUtil
         }
     }
 
-    @Override
     public synchronized final boolean isPermissionGranted(String permission)
     {
         boolean result = false;
@@ -113,7 +108,6 @@ public class PermissionsUtil implements IPermissionUtil
         return result;
     }
 
-    @Override
     public synchronized ICheckPermissionResult checkPermissionsResults(String[] permissionsArray)
     {
         PermissionsResults permissionsResults = new PermissionsResults();

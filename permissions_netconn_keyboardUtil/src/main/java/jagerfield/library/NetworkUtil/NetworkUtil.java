@@ -1,16 +1,24 @@
 package jagerfield.library.NetworkUtil;
 
-import android.content.Context;
+import android.Manifest;
+import android.app.Activity;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.wifi.WifiManager;
+import android.nfc.NfcAdapter;
+import android.os.Build;
 import android.os.Handler;
+import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.widget.Toast;
+
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import jagerfield.library.C;
+import jagerfield.library.PermissionsUtil.PermissionsUtil;
 
 public class NetworkUtil
 {
@@ -27,14 +35,14 @@ public class NetworkUtil
     /* Gets internet connectivity status and also pings to make sure it is available.
     *
     */
-    public int getInternetStatus(Context context)
+    public int getInternetConnectionStatus(Activity activity)
     {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager) activity.getSystemService(Activity.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        if (activeNetwork == null) return C.NOT_FOUND_VAL;
+        if (activeNetwork == null) return C.NOT_FOUND;
 
         int conn = activeNetwork.getType();
-        int type = C.NOT_FOUND_VAL;
+        int type = C.NOT_FOUND;
 
         if (conn == C.TYPE_WIFI)
         {
@@ -57,7 +65,7 @@ public class NetworkUtil
             Log.i(C.TAG, "Internet TYPE_NOT_CONNECTED");
         }
 
-        boolean result = pingGoogle(context);
+        boolean result = pingGoogle(activity);
 
         if(result && (type==C.TYPE_WIFI || type==C.TYPE_MOBILE))
         {
@@ -71,13 +79,12 @@ public class NetworkUtil
         return type;
     }
 
-
-    private boolean pingGoogle(Context context)
+    private boolean pingGoogle(Activity activity)
     {
         int counter = 2;
         boolean result = false;
 
-        if(isNetAvailable(context))
+        if(isNetworkConnected(activity))
         {
             return true;
         }
@@ -85,7 +92,7 @@ public class NetworkUtil
         {
             for (int i = 0; i <counter ; i++)
             {
-                result = isNetAvailable(context);
+                result = isNetworkConnected(activity);
 
                 if (result)
                 {
@@ -110,10 +117,10 @@ public class NetworkUtil
         return result;
     }
 
-    private static boolean isNetAvailable(Context context)
+    public boolean isNetworkConnected(Activity activity)
     {
         boolean connected = false;
-        final ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        final ConnectivityManager connectivityManager = (ConnectivityManager) activity.getSystemService(Activity.CONNECTIVITY_SERVICE);
         final NetworkInfo newtWorkInfo = connectivityManager.getActiveNetworkInfo();
 
         if (newtWorkInfo != null && newtWorkInfo.isConnectedOrConnecting())
@@ -168,5 +175,122 @@ public class NetworkUtil
 
         return connected;
     }
+
+    public boolean isNfcPresent(Activity activity)
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD_MR1) {
+            NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(activity);
+            return nfcAdapter != null;
+        }
+        return false;
+    }
+
+    public boolean isNfcEnabled(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD_MR1) {
+            NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(activity);
+            return nfcAdapter != null && nfcAdapter.isEnabled();
+        }
+        return false;
+    }
+
+    public boolean isWifiEnabled(Activity activity) {
+        WifiManager wifiManager = (WifiManager) activity.getSystemService(Activity.WIFI_SERVICE);
+        return wifiManager.isWifiEnabled();
+    }
+
+    public String getNetworkClass(Activity activity) {
+        TelephonyManager mTelephonyManager = (TelephonyManager) activity.getSystemService(Activity.TELEPHONY_SERVICE);
+        int networkType = mTelephonyManager.getNetworkType();
+        switch (networkType) {
+            case TelephonyManager.NETWORK_TYPE_GPRS:
+            case TelephonyManager.NETWORK_TYPE_EDGE:
+            case TelephonyManager.NETWORK_TYPE_CDMA:
+            case TelephonyManager.NETWORK_TYPE_1xRTT:
+            case TelephonyManager.NETWORK_TYPE_IDEN:
+                return C.NETWORK_TYPE_2G;
+            case TelephonyManager.NETWORK_TYPE_UMTS:
+            case TelephonyManager.NETWORK_TYPE_EVDO_0:
+            case TelephonyManager.NETWORK_TYPE_EVDO_A:
+            case TelephonyManager.NETWORK_TYPE_HSDPA:
+            case TelephonyManager.NETWORK_TYPE_HSUPA:
+            case TelephonyManager.NETWORK_TYPE_HSPA:
+            case TelephonyManager.NETWORK_TYPE_EVDO_B:
+            case TelephonyManager.NETWORK_TYPE_EHRPD:
+            case TelephonyManager.NETWORK_TYPE_HSPAP:
+                return C.NETWORK_TYPE_3G;
+            case TelephonyManager.NETWORK_TYPE_LTE:
+                return C.NETWORK_TYPE_4G;
+            default:
+                return C.NOT_FOUND_VAL;
+        }
+    }
+
+    public final String getIMEI(Activity activity)
+    {
+        if(!PermissionsUtil.getInstance(activity).isPermissionGranted(Manifest.permission.READ_PHONE_STATE))
+        {
+            Toast.makeText(activity, "READ_PHONE_STATE permission is not provided", Toast.LENGTH_SHORT).show();
+            return "";
+        }
+
+        TelephonyManager telephonyMgr = (TelephonyManager) activity.getSystemService(Activity.TELEPHONY_SERVICE);
+        return telephonyMgr.getDeviceId();
+    }
+
+    public final String getIMSI(Activity activity)
+    {
+        TelephonyManager telephonyMgr = (TelephonyManager) activity.getSystemService(Activity.TELEPHONY_SERVICE);
+        return telephonyMgr.getSubscriberId();
+    }
+
+    public final String getPhoneType(Activity activity)
+    {
+        TelephonyManager tm = (TelephonyManager) activity.getSystemService(Activity.TELEPHONY_SERVICE);
+        switch (tm.getPhoneType()) {
+            case TelephonyManager.PHONE_TYPE_GSM:
+                return C.PHONE_TYPE_GSM;
+            case TelephonyManager.PHONE_TYPE_CDMA:
+                return C.PHONE_TYPE_CDMA;
+            case TelephonyManager.PHONE_TYPE_NONE:
+            default:
+                return C.PHONE_TYPE_NONE;
+        }
+    }
+
+    public String getPhoneNumber(Activity activity)
+    {
+        if(!PermissionsUtil.getInstance(activity).isPermissionGranted(Manifest.permission.READ_PHONE_STATE))
+        {
+            Toast.makeText(activity, "READ_PHONE_STATE permission is not provided", Toast.LENGTH_SHORT).show();
+            return "";
+        }
+
+        String serviceName = Activity.TELEPHONY_SERVICE;
+        TelephonyManager m_telephonyManager = (TelephonyManager) activity.getSystemService(serviceName);
+        return m_telephonyManager.getLine1Number();
+    }
+
+    public String getOperator(Activity activity)
+    {
+        String operatorName;
+        TelephonyManager telephonyManager =((TelephonyManager) activity.getSystemService(Activity.TELEPHONY_SERVICE));
+        operatorName = telephonyManager.getNetworkOperatorName();
+        if(operatorName == null)
+        {
+            operatorName = telephonyManager.getSimOperatorName();
+        }
+        return operatorName;
+    }
+
+    public final String getSimSerial(Activity activity) {
+        TelephonyManager telephonyManager =((TelephonyManager) activity.getSystemService(Activity.TELEPHONY_SERVICE));
+        return telephonyManager.getSimSerialNumber();
+    }
+
+    public final boolean isSimNetworkLocked(Activity activity) {
+        TelephonyManager telephonyManager =((TelephonyManager) activity.getSystemService(Activity.TELEPHONY_SERVICE));
+        return telephonyManager.getSimState() == TelephonyManager.SIM_STATE_NETWORK_LOCKED;
+    }
+
 
 }

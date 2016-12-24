@@ -5,23 +5,20 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import java.util.ArrayList;
-
 import jagerfield.library.AppUtilities;
 import jagerfield.library.NetworkUtil.NetworkUtil;
-import jagerfield.library.PermissionsUtil.IPermissionUtil;
+import jagerfield.library.PermissionsUtil.PermissionsUtil;
 import jagerfield.library.PermissionsUtil.Results.ICheckPermissionResult;
 import jagerfield.utilities.R;
 
 
-public class UserInterface
+public class UserInterfaceManager
 {
     private TextView tv_getting_permission;
     private TextView tv_requestPermissions;
@@ -41,7 +38,7 @@ public class UserInterface
 
     private MainActivity mainActivity;
 
-    public UserInterface(MainActivity mainActivity)
+    public UserInterfaceManager(MainActivity mainActivity)
     {
         this.mainActivity = mainActivity;
     }
@@ -86,7 +83,7 @@ public class UserInterface
 
     private void getPermissions()
     {
-        IPermissionUtil permissionsUtil = AppUtilities.getPermissionUtil(mainActivity);
+        PermissionsUtil permissionsUtil = AppUtilities.getPermissionUtil(mainActivity);
 
         ICheckPermissionResult result = permissionsUtil.checkPermissionsResults(PERMISSIONS_ARRAY);
 
@@ -101,7 +98,7 @@ public class UserInterface
 
         NetworkUtil network = new NetworkUtil();
 
-        int i = network.getInternetStatus(mainActivity);
+        int i = network.getInternetConnectionStatus(mainActivity);
 
         String str = "";
     }

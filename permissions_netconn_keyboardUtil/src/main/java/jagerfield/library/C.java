@@ -1,5 +1,7 @@
 package jagerfield.library;
 
+import android.os.Handler;
+
 /**
  * Created by Sense on 2016-12-22.
  */
@@ -16,32 +18,33 @@ public class C
     public static final int TYPE_WIMAX = 6;
     public static final int TYPE_MOBILE = 2;
     public static final int TYPE_NOT_CONNECTED = 0;
-    public static final int NOT_FOUND_VAL = -1;
+    public static final int NOT_FOUND = -1;
 
-    public final String BATTERY_HEALTH_COLD = "cold";
-    public final String BATTERY_HEALTH_DEAD = "dead";
-    public final String BATTERY_HEALTH_GOOD = "good";
-    public final String BATTERY_HEALTH_OVERHEAT = "Over Heat";
-    public final String BATTERY_HEALTH_OVER_VOLTAGE = "Over Voltage";
-    public final String BATTERY_HEALTH_UNKNOWN = "Unknown";
-    public final String BATTERY_HEALTH_UNSPECIFIED_FAILURE = "Unspecified failure";
+    public static final String BATTERY_HEALTH_COLD = "cold";
+    public static final String BATTERY_HEALTH_DEAD = "dead";
+    public static final String BATTERY_HEALTH_GOOD = "good";
+    public static final String BATTERY_HEALTH_OVERHEAT = "Over Heat";
+    public static final String BATTERY_HEALTH_OVER_VOLTAGE = "Over Voltage";
+    public static final String BATTERY_HEALTH_UNKNOWN = "Unknown";
+    public static final String BATTERY_HEALTH_UNSPECIFIED_FAILURE = "Unspecified failure";
 
-    public final String BATTERY_PLUGGED_AC = "Charging via AC";
-    public final String BATTERY_PLUGGED_USB = "Charging via USB";
-    public final String BATTERY_PLUGGED_WIRELESS = "Wireless";
-    public final String BATTERY_PLUGGED_UNKNOWN = "Unknown Source";
+    public static final String BATTERY_PLUGGED_AC = "Charging via AC";
+    public static final String BATTERY_PLUGGED_USB = "Charging via USB";
+    public static final String BATTERY_PLUGGED_WIRELESS = "Wireless";
+    public static final String BATTERY_PLUGGED_UNKNOWN = "Unknown Source";
 
-    public final String RINGER_MODE_NORMAL = "Normal";
-    public final String RINGER_MODE_SILENT = "Silent";
-    public final String RINGER_MODE_VIBRATE = "Vibrate";
+    public static final String RINGER_MODE_NORMAL = "Normal";
+    public static final String RINGER_MODE_SILENT = "Silent";
+    public static final String RINGER_MODE_VIBRATE = "Vibrate";
 
-    public final String PHONE_TYPE_GSM = "GSM";
-    public final String PHONE_TYPE_CDMA = "CDMA";
-    public final String PHONE_TYPE_NONE = "Unknown";
+    public static final String PHONE_TYPE_GSM = "GSM";
+    public static final String PHONE_TYPE_CDMA = "CDMA";
+    public static final String PHONE_TYPE_NONE = "Unknown";
 
-    public final String NETWORK_TYPE_2G = "2G";
-    public final String NETWORK_TYPE_3G = "3G";
-    public final String NETWORK_TYPE_4G = "4G";
-    public final String NETWORK_TYPE_WIFI_WIFIMAX = "WiFi";
+    public static final String NETWORK_TYPE_2G = "2G";
+    public static final String NETWORK_TYPE_3G = "3G";
+    public static final String NETWORK_TYPE_4G = "4G";
+    public static final String NOT_FOUND_VAL = "NOT_FOUND_VAL";
+    public static final String NETWORK_TYPE_WIFI_WIFIMAX = "WiFi";
 
 }

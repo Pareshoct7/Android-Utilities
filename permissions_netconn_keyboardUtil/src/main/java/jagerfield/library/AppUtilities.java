@@ -2,31 +2,25 @@ package jagerfield.library;
 
 
 import android.app.Activity;
-import android.content.Context;
 import jagerfield.library.NetworkUtil.NetworkUtil;
-import jagerfield.library.PermissionsUtil.IPermissionUtil;
 import jagerfield.library.PermissionsUtil.PermissionsUtil;
 import jagerfield.library.SoftKeyboradUtil.SoftKeyboardUtil;
 
-public class AppUtilities //implements IAppUtilities
+public class AppUtilities
 {
-//    @Override
-    public static int getNetworkStatus(Context context)
+    public static NetworkUtil getNetworkUtil(Activity activity)
     {
-        return NetworkUtil.getInstance().getInternetStatus(context);
+        return NetworkUtil.getInstance();
     }
 
-//    @Override
     public static void setSoftboardKey(Activity activity, boolean status)
     {
         SoftKeyboardUtil.getInstance().setSkb(activity, status);
     }
 
-//    @Override
-    public static IPermissionUtil getPermissionUtil(Activity activity)
+    public static PermissionsUtil getPermissionUtil(Activity activity)
     {
         return PermissionsUtil.getInstance(activity);
     }
-
 
 }
