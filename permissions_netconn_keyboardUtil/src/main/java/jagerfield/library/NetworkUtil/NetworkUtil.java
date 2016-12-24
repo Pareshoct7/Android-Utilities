@@ -2,12 +2,15 @@ package jagerfield.library.NetworkUtil;
 
 import android.Manifest;
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
 import android.os.Build;
 import android.os.Handler;
+import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -39,10 +42,10 @@ public class NetworkUtil
     {
         ConnectivityManager cm = (ConnectivityManager) activity.getSystemService(Activity.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        if (activeNetwork == null) return C.NOT_FOUND;
+        if (activeNetwork == null) return C.TYPE_NOT_FOUND;
 
         int conn = activeNetwork.getType();
-        int type = C.NOT_FOUND;
+        int type = C.TYPE_NOT_FOUND;
 
         if (conn == C.TYPE_WIFI)
         {
@@ -282,7 +285,8 @@ public class NetworkUtil
         return operatorName;
     }
 
-    public final String getSimSerial(Activity activity) {
+    public final String getSimSerial(Activity activity)
+    {
         TelephonyManager telephonyManager =((TelephonyManager) activity.getSystemService(Activity.TELEPHONY_SERVICE));
         return telephonyManager.getSimSerialNumber();
     }
@@ -292,5 +296,40 @@ public class NetworkUtil
         return telephonyManager.getSimState() == TelephonyManager.SIM_STATE_NETWORK_LOCKED;
     }
 
+    @SuppressWarnings("MissingPermission")
+    public final String getBluetoothMAC(Activity activity)
+    {
+        if(!PermissionsUtil.getInstance(activity).isPermissionGranted(Manifest.permission.BLUETOOTH))
+        {
+            Toast.makeText(activity, "BLUETOOTH permission is not provided", Toast.LENGTH_SHORT).show();
+            return "";
+        }
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        {
+            return Settings.Secure.getString(activity.getContentResolver(),
+                    "bluetooth_address");
+        }
+        else
+        {
+            BluetoothAdapter bta = BluetoothAdapter.getDefaultAdapter();
+            String result = bta != null ? bta.getAddress() : "00";
+            return result;
+        }
+    }
+
+    @SuppressWarnings("MissingPermission")
+    public final String getWifiMacAddress(Activity activity)
+    {
+        if(!PermissionsUtil.getInstance(activity).isPermissionGranted(Manifest.permission.ACCESS_WIFI_STATE))
+        {
+            Toast.makeText(activity, "ACCESS_WIFI_STATE permission is not provided", Toast.LENGTH_SHORT).show();
+            return "";
+        }
+
+        WifiManager manager = (WifiManager) activity.getSystemService(Activity.WIFI_SERVICE);
+        WifiInfo info = manager.getConnectionInfo();
+        String address = info.getMacAddress();
+        return address;
+    }
 }

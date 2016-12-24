@@ -18,7 +18,7 @@ public class C
     public static final int TYPE_WIMAX = 6;
     public static final int TYPE_MOBILE = 2;
     public static final int TYPE_NOT_CONNECTED = 0;
-    public static final int NOT_FOUND = -1;
+    public static final int TYPE_NOT_FOUND = -1;
 
     public static final String BATTERY_HEALTH_COLD = "cold";
     public static final String BATTERY_HEALTH_DEAD = "dead";

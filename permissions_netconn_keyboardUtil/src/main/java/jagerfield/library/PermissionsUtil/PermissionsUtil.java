@@ -91,17 +91,22 @@ public class PermissionsUtil
     public synchronized final boolean isPermissionGranted(String permission)
     {
         boolean result = false;
+        String msg = "";
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
-            result = activity.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED;
+            result = activity.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED ? true:false;
+            msg = " is not available";
         }
-
-        result =  ContextCompat.checkSelfPermission(activity, permission) == PackageManager.PERMISSION_GRANTED;
+        else
+        {
+            result = activity.checkCallingOrSelfPermission(permission) == PackageManager.PERMISSION_GRANTED ? true:false;
+            msg = " is missing in Manifest";
+        }
 
         if (!result)
         {
-            Toast.makeText(activity, permission +" is not available", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, permission + msg, Toast.LENGTH_SHORT).show();
             Log.e(C.TAG, permission + " is not available");
         }
 
