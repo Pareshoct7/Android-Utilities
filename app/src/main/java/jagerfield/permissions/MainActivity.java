@@ -2,7 +2,18 @@ package jagerfield.permissions;
 
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.ArrayList;
+
 import jagerfield.library.AppUtilities;
 import jagerfield.library.PermissionsUtil.PermissionsUtil;
 import jagerfield.library.PermissionsUtil.Results.ICheckPermissionResult;
@@ -11,8 +22,8 @@ import jagerfield.utilities.R;
 public class MainActivity extends AppCompatActivity
 {
     private CoordinatorLayout activity_main;
-
-    UserInterfaceManager userInterfaceManager = new UserInterfaceManager(this);
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -20,8 +31,13 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        activity_main = (CoordinatorLayout) findViewById(R.id.activity_main);
-        userInterfaceManager.initiateAppViews(activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+
+        launchViewPager();
+
     }
 
     @Override
@@ -38,9 +54,62 @@ public class MainActivity extends AppCompatActivity
                 return;
             }
 
-            userInterfaceManager.setUserInterface(result);
+            /**
+             * Send th eresult to the fragment
+             */
+            EventBus.getDefault().post(result);
 
             String str = "";
+        }
+    }
+
+    private void launchViewPager()
+    {
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+
+        viewPagerAdapter.addTab(C.PERMISSIONS_TAB, new PermissionsFragment());
+//        viewPagerAdapter.addTab(C.CURSOR_LOADER, ContactListFragment.newInstance(C.CURSOR_LOADER));
+        viewPager.setAdapter(viewPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
+    public class ViewPagerAdapter extends FragmentPagerAdapter
+    {
+        private final ArrayList<FragModel> fragmentList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return fragmentList.get(position).fragment;
+        }
+
+        @Override
+        public int getCount() {
+            return fragmentList.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return fragmentList.get(position).title;
+        }
+
+        public void addTab(String title, Fragment fragment)
+        {
+            fragmentList.add(new FragModel(title, fragment));
+        }
+
+        class FragModel
+        {
+            Fragment fragment;
+            String title;
+
+            public FragModel(String title, Fragment fragment) {
+                this.fragment = fragment;
+                this.title = title;
+            }
         }
     }
 }

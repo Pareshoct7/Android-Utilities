@@ -68,7 +68,8 @@ public class DeviceUtil
     }
 
     @RequiresApi(api = Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-    public final String getRadioVer() {
+    public final String getRadioVer()
+    {
         return  Build.getRadioVersion();
     }
 

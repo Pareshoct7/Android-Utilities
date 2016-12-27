@@ -231,14 +231,14 @@ public class UserInterfaceManager
         return items.toString().replace("_", " ").trim();
     }
 
-    public static void openSettings(final Activity context) {
-        if (context == null) {
+    public static void openSettings(final Activity activity) {
+        if (activity == null) {
             return;
         }
 
-        Uri uri = Uri.parse("package:" + context.getPackageName());
+        Uri uri = Uri.parse("package:" + activity.getPackageName());
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, uri);
-        context.startActivity(intent);
+        activity.startActivity(intent);
     }
 
 }
