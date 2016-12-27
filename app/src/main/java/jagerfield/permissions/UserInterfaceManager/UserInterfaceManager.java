@@ -1,4 +1,4 @@
-package jagerfield.permissions;
+package jagerfield.permissions.UserInterfaceManager;
 
 import android.Manifest;
 import android.app.Activity;
@@ -15,6 +15,7 @@ import jagerfield.library.AppUtilities;
 import jagerfield.library.NetworkUtil.NetworkUtil;
 import jagerfield.library.PermissionsUtil.PermissionsUtil;
 import jagerfield.library.PermissionsUtil.Results.ICheckPermissionResult;
+import jagerfield.permissions.MainActivity;
 import jagerfield.utilities.R;
 
 

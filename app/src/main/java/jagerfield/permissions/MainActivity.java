@@ -17,6 +17,10 @@ import java.util.ArrayList;
 import jagerfield.library.AppUtilities;
 import jagerfield.library.PermissionsUtil.PermissionsUtil;
 import jagerfield.library.PermissionsUtil.Results.ICheckPermissionResult;
+import jagerfield.permissions.Fragments.MemoryInfoFragment;
+import jagerfield.permissions.Fragments.PermissionsFragment;
+import jagerfield.permissions.UserInterfaceManager.UserInterfaceManager;
+import jagerfield.permissions.Utilities.C;
 import jagerfield.utilities.R;
 
 public class MainActivity extends AppCompatActivity
@@ -68,7 +72,7 @@ public class MainActivity extends AppCompatActivity
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         viewPagerAdapter.addTab(C.PERMISSIONS_TAB, new PermissionsFragment());
-//        viewPagerAdapter.addTab(C.CURSOR_LOADER, ContactListFragment.newInstance(C.CURSOR_LOADER));
+        viewPagerAdapter.addTab(C.MEMORY_INFO_TAB, new MemoryInfoFragment());
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
     }

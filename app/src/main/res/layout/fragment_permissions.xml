@@ -3,7 +3,7 @@
     android:id="@+id/permissions_frag_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="jagerfield.permissions.PermissionsFragment">
+    tools:context="jagerfield.permissions.Fragments.PermissionsFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -1,8 +1,7 @@
-package jagerfield.permissions;
+package jagerfield.permissions.Fragments;
 
 
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +12,8 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import jagerfield.library.PermissionsUtil.Results.ICheckPermissionResult;
+import jagerfield.permissions.MainActivity;
+import jagerfield.permissions.UserInterfaceManager.UserInterfaceManager;
 import jagerfield.utilities.R;
 
 

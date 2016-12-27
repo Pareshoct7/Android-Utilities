@@ -24,7 +24,8 @@ public class MemoryUtil
         return new MemoryUtil();
     }
 
-    public boolean hasExternalSDCard() {
+    public boolean hasExternalSDCard()
+    {
         return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
     }
 
@@ -84,7 +85,6 @@ public class MemoryUtil
         }
         return totalBlocks * blockSize;
     }
-
 
     public final long getAvailableExternalMemorySize() {
         if (hasExternalSDCard()) {
