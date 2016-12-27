@@ -1,7 +1,5 @@
 package jagerfield.permissions.Fragments;
 
-
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,15 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
-
-import jagerfield.library.MemoryUtil.MemoryUtil;
 import jagerfield.utilities.R;
 
-
-public class MemoryInfoFragment extends Fragment {
-
+public class MemoryInfoFragment extends Fragment
+{
+    private RecyclerView recyclerView;
 
     public MemoryInfoFragment()
     {
@@ -33,14 +31,48 @@ public class MemoryInfoFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_deviceinfo_list, container, false);
         Context context = view.getContext();
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.deviceInfolist);
+        recyclerView = (RecyclerView) view.findViewById(R.id.deviceInfolist);
         recyclerView.setLayoutManager(new GridLayoutManager(context, 2));
 
-        ArrayList<DevicePropertiesModel> propertiesList = getMemoryProperties(getActivity());
+        return view;
+    }
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onGreenRobotEvent(ArrayList<DevicePropertiesModel> propertiesList)
+    {
+        /*
+         * Posted from : MainActivity - public class ViewPagerAdapter
+         */
+
+        EventBus.getDefault().removeStickyEvent(DevicePropertiesModel.class);
+
+        if (propertiesList == null)
+        {
+            return;
+        }
 
         recyclerView.setAdapter(new DeviceInfoListViewAdapter(this, propertiesList));
+    }
 
-        return view;
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+
+        try
+        {
+            EventBus.getDefault().register(this);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onDestroyView()
+    {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
     }
 
     /**
@@ -94,66 +126,6 @@ public class MemoryInfoFragment extends Fragment {
             }
         }
     }
-
-    public ArrayList<DevicePropertiesModel> getMemoryProperties(Activity activity)
-    {
-        ArrayList<DevicePropertiesModel> properties = new ArrayList<>();
-        MemoryUtil memoryUtil = MemoryUtil.getInstance();
-
-        addProperty(properties, "Has External SD Card", memoryUtil.hasExternalSDCard());
-
-        addProperty(properties, "Total RAM", memoryUtil.getTotalRAM(activity), "MB");
-
-        addProperty(properties, "Available Internal Memory Size", memoryUtil.getAvailableInternalMemorySize(activity), "MB");
-
-        addProperty(properties, "Total Internal Memory Size", memoryUtil.getTotalInternalMemorySize(), "MB");
-
-        addProperty(properties, "Available External Memory Size", memoryUtil.getAvailableExternalMemorySize(), "MB");
-
-        addProperty(properties, "Total External Memory Size", memoryUtil.getTotalExternalMemorySize(), "MB");
-
-        return properties;
-    }
-
-    public void addProperty(ArrayList<DevicePropertiesModel> properties, String type, long value, String suffex)
-    {
-        DevicePropertiesModel property = new DevicePropertiesModel();
-        property.setPropertyType(type);
-        try
-        {
-            property.setValue(String.valueOf(value/1000000) + " " + suffex);
-            properties.add(property);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void addProperty(ArrayList<DevicePropertiesModel> properties, String type, boolean value)
-    {
-        if (type == null || type.isEmpty())
-        {
-            return;
-        }
-
-        DevicePropertiesModel property = new DevicePropertiesModel();
-        property.setPropertyType(type);
-
-        try
-        {
-            String str = String.valueOf(value);
-            char c = Character.toUpperCase(str.charAt(0));
-            str = str.replaceFirst(Character.toString(str.charAt(0)), Character.toString(c));
-
-            property.setValue(str);
-            properties.add(property);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
 }
 
 

@@ -96,12 +96,6 @@ public class UserInterfaceManager
         {
             permissionsUtil.makePermissionsRequests(PERMISSIONS_ARRAY);
         }
-
-        NetworkUtil network = new NetworkUtil();
-
-        int i = network.getInternetConnectionStatus(mainActivity);
-
-        String str = "";
     }
 
     public void setUserInterface(ICheckPermissionResult permissionsResults)

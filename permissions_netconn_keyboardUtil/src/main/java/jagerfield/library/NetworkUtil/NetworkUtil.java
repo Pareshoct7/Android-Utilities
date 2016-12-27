@@ -38,11 +38,14 @@ public class NetworkUtil
     /* Gets internet connectivity status and also pings to make sure it is available.
     *
     */
-    public int getInternetConnectionStatus(Activity activity)
+    public String getInternetConnectionStatus(Activity activity)
     {
         ConnectivityManager cm = (ConnectivityManager) activity.getSystemService(Activity.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        if (activeNetwork == null) return C.TYPE_NOT_FOUND;
+        if (activeNetwork == null)
+        {
+            return "TYPE_NOT_FOUND";
+        }
 
         int conn = activeNetwork.getType();
         int type = C.TYPE_NOT_FOUND;
@@ -70,16 +73,27 @@ public class NetworkUtil
 
         boolean result = pingGoogle(activity);
 
-        if(result && (type==C.TYPE_WIFI || type==C.TYPE_MOBILE))
+       if(!result)
         {
-            return type;
-        }
-        else if(!result)
-        {
-            return type = C.TYPE_NOT_CONNECTED;
+            return "TYPE_NOT_CONNECTED";
         }
 
-        return type;
+        switch(type)
+        {
+            case C.TYPE_WIFI:
+                return "TYPE_WIFI";
+            case C.TYPE_WIMAX:
+                return "TYPE_WIMAX";
+            case C.TYPE_MOBILE:
+                return "TYPE_MOBILE";
+            case C.TYPE_NOT_CONNECTED:
+                return "TYPE_NOT_CONNECTED";
+            case C.TYPE_NOT_FOUND:
+                return "TYPE_NOT_FOUND";
+            default:
+                return "TYPE_NOT_FOUND";
+        }
+
     }
 
     private boolean pingGoogle(Activity activity)
@@ -228,7 +242,7 @@ public class NetworkUtil
         }
     }
 
-    public final String getIMEI(Activity activity)
+    public String getIMEI(Activity activity)
     {
         if(!PermissionsUtil.getInstance(activity).isPermissionGranted(Manifest.permission.READ_PHONE_STATE))
         {
@@ -240,7 +254,7 @@ public class NetworkUtil
         return telephonyMgr.getDeviceId();
     }
 
-    public final String getIMSI(Activity activity)
+    public String getIMSI(Activity activity)
     {
         TelephonyManager telephonyMgr = (TelephonyManager) activity.getSystemService(Activity.TELEPHONY_SERVICE);
         return telephonyMgr.getSubscriberId();
@@ -297,7 +311,7 @@ public class NetworkUtil
     }
 
     @SuppressWarnings("MissingPermission")
-    public final String getBluetoothMAC(Activity activity)
+    public String getBluetoothMAC(Activity activity)
     {
         if(!PermissionsUtil.getInstance(activity).isPermissionGranted(Manifest.permission.BLUETOOTH))
         {
@@ -319,7 +333,7 @@ public class NetworkUtil
     }
 
     @SuppressWarnings("MissingPermission")
-    public final String getWifiMacAddress(Activity activity)
+    public String getWifiMacAddress(Activity activity)
     {
         if(!PermissionsUtil.getInstance(activity).isPermissionGranted(Manifest.permission.ACCESS_WIFI_STATE))
         {

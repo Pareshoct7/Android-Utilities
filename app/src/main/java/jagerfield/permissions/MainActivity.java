@@ -9,14 +9,13 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-
 import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
-
 import jagerfield.library.AppUtilities;
 import jagerfield.library.PermissionsUtil.PermissionsUtil;
 import jagerfield.library.PermissionsUtil.Results.ICheckPermissionResult;
+import jagerfield.permissions.DeviceData.Properties.MemoryUtilData;
+import jagerfield.permissions.Fragments.DevicePropertiesModel;
 import jagerfield.permissions.Fragments.MemoryInfoFragment;
 import jagerfield.permissions.Fragments.PermissionsFragment;
 import jagerfield.permissions.UserInterfaceManager.UserInterfaceManager;
@@ -70,7 +69,6 @@ public class MainActivity extends AppCompatActivity
     private void launchViewPager()
     {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-
         viewPagerAdapter.addTab(C.PERMISSIONS_TAB, new PermissionsFragment());
         viewPagerAdapter.addTab(C.MEMORY_INFO_TAB, new MemoryInfoFragment());
         viewPager.setAdapter(viewPagerAdapter);
@@ -86,7 +84,15 @@ public class MainActivity extends AppCompatActivity
         }
 
         @Override
-        public Fragment getItem(int position) {
+        public Fragment getItem(int position)
+        {
+            ArrayList<DevicePropertiesModel> propertiesList = MemoryUtilData.getInstance().getDeviceMemoryProperties(MainActivity.this);
+            if (propertiesList==null)
+            {
+                propertiesList = new ArrayList<>();
+            }
+
+            EventBus.getDefault().postSticky(propertiesList);
             return fragmentList.get(position).fragment;
         }
 

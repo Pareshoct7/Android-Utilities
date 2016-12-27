@@ -1,11 +1,5 @@
 package jagerfield.library;
 
-import android.os.Handler;
-
-/**
- * Created by Sense on 2016-12-22.
- */
-
 public class C
 {
     public static final String GRANTED = "GRANTED";

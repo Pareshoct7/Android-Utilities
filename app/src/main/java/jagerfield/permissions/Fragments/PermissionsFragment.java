@@ -33,8 +33,6 @@ public class PermissionsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view  = inflater.inflate(R.layout.fragment_permissions, container, false);
 
-//        EventBus.getDefault().register(this);
-
         userInterfaceManager = new UserInterfaceManager((MainActivity) getActivity());
         userInterfaceManager.initiateAppViews(view);
 
