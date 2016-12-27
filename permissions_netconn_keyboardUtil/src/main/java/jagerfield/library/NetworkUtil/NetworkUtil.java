@@ -195,10 +195,12 @@ public class NetworkUtil
 
     public boolean isNfcPresent(Activity activity)
     {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD_MR1) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD_MR1)
+        {
             NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(activity);
             return nfcAdapter != null;
         }
+
         return false;
     }
 
@@ -210,7 +212,14 @@ public class NetworkUtil
         return false;
     }
 
-    public boolean isWifiEnabled(Activity activity) {
+    public Boolean isWifiEnabled(Activity activity)
+    {
+        if(!PermissionsUtil.getInstance(activity).isPermissionGranted(Manifest.permission.ACCESS_WIFI_STATE))
+        {
+            Toast.makeText(activity, "ACCESS_WIFI_STATE permission is not provided", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
         WifiManager wifiManager = (WifiManager) activity.getSystemService(Activity.WIFI_SERVICE);
         return wifiManager.isWifiEnabled();
     }
@@ -247,7 +256,7 @@ public class NetworkUtil
         if(!PermissionsUtil.getInstance(activity).isPermissionGranted(Manifest.permission.READ_PHONE_STATE))
         {
             Toast.makeText(activity, "READ_PHONE_STATE permission is not provided", Toast.LENGTH_SHORT).show();
-            return "";
+            return "Missing permission READ_PHONE_STATE";
         }
 
         TelephonyManager telephonyMgr = (TelephonyManager) activity.getSystemService(Activity.TELEPHONY_SERVICE);
@@ -256,6 +265,12 @@ public class NetworkUtil
 
     public String getIMSI(Activity activity)
     {
+        if(!PermissionsUtil.getInstance(activity).isPermissionGranted(Manifest.permission.READ_PHONE_STATE))
+        {
+            Toast.makeText(activity, "READ_PHONE_STATE permission is not provided", Toast.LENGTH_SHORT).show();
+            return "Missing permission READ_PHONE_STATE";
+        }
+
         TelephonyManager telephonyMgr = (TelephonyManager) activity.getSystemService(Activity.TELEPHONY_SERVICE);
         return telephonyMgr.getSubscriberId();
     }
@@ -279,7 +294,7 @@ public class NetworkUtil
         if(!PermissionsUtil.getInstance(activity).isPermissionGranted(Manifest.permission.READ_PHONE_STATE))
         {
             Toast.makeText(activity, "READ_PHONE_STATE permission is not provided", Toast.LENGTH_SHORT).show();
-            return "";
+            return "Missing permission READ_PHONE_STATE";
         }
 
         String serviceName = Activity.TELEPHONY_SERVICE;
@@ -301,6 +316,12 @@ public class NetworkUtil
 
     public final String getSimSerial(Activity activity)
     {
+        if(!PermissionsUtil.getInstance(activity).isPermissionGranted(Manifest.permission.READ_PHONE_STATE))
+        {
+            Toast.makeText(activity, "READ_PHONE_STATE permission is not provided", Toast.LENGTH_SHORT).show();
+            return "Missing permission READ_PHONE_STATE";
+        }
+
         TelephonyManager telephonyManager =((TelephonyManager) activity.getSystemService(Activity.TELEPHONY_SERVICE));
         return telephonyManager.getSimSerialNumber();
     }
@@ -316,13 +337,13 @@ public class NetworkUtil
         if(!PermissionsUtil.getInstance(activity).isPermissionGranted(Manifest.permission.BLUETOOTH))
         {
             Toast.makeText(activity, "BLUETOOTH permission is not provided", Toast.LENGTH_SHORT).show();
-            return "";
+            return "Missing permission BLUETOOTH";
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
-            return Settings.Secure.getString(activity.getContentResolver(),
-                    "bluetooth_address");
+            String mac = Settings.Secure.getString(activity.getContentResolver(), "bluetooth_address");
+            return mac;
         }
         else
         {
@@ -338,7 +359,7 @@ public class NetworkUtil
         if(!PermissionsUtil.getInstance(activity).isPermissionGranted(Manifest.permission.ACCESS_WIFI_STATE))
         {
             Toast.makeText(activity, "ACCESS_WIFI_STATE permission is not provided", Toast.LENGTH_SHORT).show();
-            return "";
+            return "Missing permission ACCESS_WIFI_STATE";
         }
 
         WifiManager manager = (WifiManager) activity.getSystemService(Activity.WIFI_SERVICE);

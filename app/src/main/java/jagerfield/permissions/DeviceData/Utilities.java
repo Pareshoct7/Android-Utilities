@@ -16,6 +16,25 @@ public class Utilities
         return utilities;
     }
 
+    public void addProperty(ArrayList<DevicePropertiesModel> properties, String type, String value)
+    {
+        if (type == null || type.isEmpty())
+        {
+            return;
+        }
+
+        DevicePropertiesModel property = new DevicePropertiesModel();
+        property.setPropertyType(type);
+        try
+        {
+            property.setValue(value);
+            properties.add(property);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void addProperty(ArrayList<DevicePropertiesModel> properties, String type, String value, String suffex)
     {
         if (type == null || type.isEmpty())
@@ -86,6 +105,38 @@ public class Utilities
             String str = String.valueOf(value);
             char c = Character.toUpperCase(str.charAt(0));
             str = str.replaceFirst(Character.toString(str.charAt(0)), Character.toString(c));
+
+            property.setValue(str);
+            properties.add(property);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addProperty(ArrayList<DevicePropertiesModel> properties, String type, Boolean value)
+    {
+        if (type == null || type.isEmpty())
+        {
+            return;
+        }
+
+        DevicePropertiesModel property = new DevicePropertiesModel();
+        property.setPropertyType(type);
+
+        try
+        {
+            String str = "";
+            if (value==null)
+            {
+                str = "Can't read property";
+            }
+            else
+            {
+                str = String.valueOf(value);
+                char c = Character.toUpperCase(str.charAt(0));
+                str = str.replaceFirst(Character.toString(str.charAt(0)), Character.toString(c));
+            }
 
             property.setValue(str);
             properties.add(property);

@@ -16,6 +16,7 @@ import jagerfield.library.NetworkUtil.NetworkUtil;
 import jagerfield.library.PermissionsUtil.PermissionsUtil;
 import jagerfield.library.PermissionsUtil.Results.ICheckPermissionResult;
 import jagerfield.permissions.MainActivity;
+import jagerfield.permissions.Utilities.C;
 import jagerfield.utilities.R;
 
 
@@ -31,11 +32,6 @@ public class UserInterfaceManager
     private Button bt_checkPermissions;
     public String PERMISSIONS_MISSING = "Permissions are missing";
     public String PERMISSIONS_GRANTED = "All Permission Available";
-
-    public static final String[] PERMISSIONS_ARRAY = {
-            Manifest.permission.CAMERA,
-            Manifest.permission.RECORD_AUDIO
-    };
 
     private MainActivity mainActivity;
 
@@ -86,7 +82,7 @@ public class UserInterfaceManager
     {
         PermissionsUtil permissionsUtil = AppUtilities.getPermissionUtil(mainActivity);
 
-        ICheckPermissionResult result = permissionsUtil.checkPermissionsResults(PERMISSIONS_ARRAY);
+        ICheckPermissionResult result = permissionsUtil.checkPermissionsResults(C.PERMISSIONS_ARRAY);
 
         if (result.arePermissionsGranted())
         {
@@ -94,7 +90,7 @@ public class UserInterfaceManager
         }
         else
         {
-            permissionsUtil.makePermissionsRequests(PERMISSIONS_ARRAY);
+            permissionsUtil.makePermissionsRequests(C.PERMISSIONS_ARRAY);
         }
     }
 

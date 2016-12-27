@@ -3,11 +3,10 @@ package jagerfield.permissions.DeviceData.Properties;
 import android.app.Activity;
 import java.util.ArrayList;
 import jagerfield.library.MemoryUtil.MemoryUtil;
-import jagerfield.permissions.DeviceData.IDeviceData;
 import jagerfield.permissions.DeviceData.Utilities;
 import jagerfield.permissions.Fragments.DevicePropertiesModel;
 
-public class MemoryUtilData implements IDeviceData
+public class MemoryUtilData
 {
     public MemoryUtilData()
     {
@@ -41,9 +40,4 @@ public class MemoryUtilData implements IDeviceData
         return properties;
     }
 
-    @Override
-    public ArrayList<DevicePropertiesModel> propertiesList(Activity activity)
-    {
-        return getDeviceMemoryProperties(activity);
-    }
 }
