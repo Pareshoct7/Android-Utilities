@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Device Utilities</string>
+    <string name="app_name">Android Utilities</string>
     <string name="approve_permissions_msg">Please approve permissionsArray.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
