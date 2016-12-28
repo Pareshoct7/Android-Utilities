@@ -24,6 +24,7 @@ public class Utilities
             Manifest.permission.CAMERA,
             Manifest.permission.RECORD_AUDIO,
             Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.READ_SMS,
             Manifest.permission.ACCESS_WIFI_STATE
     };
 

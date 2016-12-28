@@ -3,8 +3,10 @@ package jagerfield.library.NetworkUtil;
 import android.Manifest;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
+import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
@@ -297,9 +299,40 @@ public class NetworkUtil
             return "Missing permission READ_PHONE_STATE";
         }
 
-        String serviceName = Activity.TELEPHONY_SERVICE;
-        TelephonyManager m_telephonyManager = (TelephonyManager) activity.getSystemService(serviceName);
-        return m_telephonyManager.getLine1Number();
+        if(!PermissionsUtil.getInstance(activity).isPermissionGranted(Manifest.permission.READ_SMS))
+        {
+            Log.i(C.TAG, "Missing permission READ_SMS");
+            return "Missing permission READ_SMS";
+        }
+
+        Uri uriSMSURI = Uri.parse("content://sms/inbox");
+        Cursor c = null;
+        String phoneNumber="";
+
+        try
+        {
+            c = activity.getContentResolver().query(uriSMSURI, null, null, null, null);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            Log.i(C.TAG, e.getMessage());
+            return C.ERROR;
+        }
+
+        if (c==null){return C.ERROR;}
+
+        if (c != null)
+        {
+            while (c.moveToNext()) {
+                String body = c.getString(c.getColumnIndexOrThrow("body"));
+                phoneNumber = c.getString(c.getColumnIndexOrThrow("address"));
+            }
+
+            c.close();
+        }
+
+        return phoneNumber;
     }
 
     public String getOperator(Activity activity)
@@ -307,10 +340,11 @@ public class NetworkUtil
         String operatorName;
         TelephonyManager telephonyManager =((TelephonyManager) activity.getSystemService(Activity.TELEPHONY_SERVICE));
         operatorName = telephonyManager.getNetworkOperatorName();
-        if(operatorName == null)
+        if(operatorName == null || operatorName.trim().isEmpty())
         {
             operatorName = telephonyManager.getSimOperatorName();
         }
+
         return operatorName;
     }
 
