@@ -5,5 +5,11 @@
     <color name="colorAccent">#FF4081</color>
     <color name="red">#FFDC3C00</color>
     <color name="green">#ff6dae8e</color>
-    <color name="blue_grey_800_50p">#E237474F</color>
+    <color name="blue_grey_800_50p">#E2666699</color>
+    <color name="smokey_vblue">#E2688AD8</color>
+    <color name="smokey_green">#E258B760</color>
+    <color name="smokey_reddish_orange">#E2F27B4E</color>
+    <color name="smokey_sand">#E2DDBB76</color>
+    <color name="transparent">#00FFFFFF</color>
+
 </resources>

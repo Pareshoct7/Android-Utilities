@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,22 +41,17 @@ public class ShowInfoFragment extends Fragment
         Context context = view.getContext();
 
         String title = "";
-        ArrayList<PropertyModel> propertiesList = null;
+        Utilities.FragmentData fragmentData = null;
 
         if (getArguments() != null)
         {
-            title = getArguments().getString(Utilities.FRAGMENT_TITLE);
-            propertiesList = Utilities.getInstance().getFragmentPropertiesList(title, getActivity());
-        }
-
-        if (propertiesList==null)
-        {
-            propertiesList = new ArrayList<>();
+            title = getArguments().getString(Utilities.FRAGMENT_TITLE, "");
+            fragmentData = Utilities.getInstance().getFragmentData(title, getActivity());
         }
 
         recyclerView = (RecyclerView) view.findViewById(R.id.deviceInfolist);
         recyclerView.setLayoutManager(new GridLayoutManager(context, 2));
-        adapter = new DeviceInfoListViewAdapter(propertiesList);
+        adapter = new DeviceInfoListViewAdapter(fragmentData);
 
         recyclerView.setAdapter(adapter);
 
@@ -68,10 +64,12 @@ public class ShowInfoFragment extends Fragment
     private class DeviceInfoListViewAdapter extends RecyclerView.Adapter<DeviceInfoListViewAdapter.ViewHolder>
     {
         private ArrayList<PropertyModel> itemsList = new ArrayList<>();
+        private Utilities.FragmentData fragmentData;
 
-        public DeviceInfoListViewAdapter(ArrayList<PropertyModel> itemsList)
+        public DeviceInfoListViewAdapter(Utilities.FragmentData fragmentData)
         {
-            this.itemsList = itemsList;
+            this.itemsList = fragmentData.getPropertiesList();
+            this.fragmentData = fragmentData;
         }
 
         @Override
@@ -87,6 +85,8 @@ public class ShowInfoFragment extends Fragment
             holder.vhObject = itemsList.get(position);
             holder.propertyType.setText(holder.vhObject.getPropertyType());
             holder.value.setText(holder.vhObject.getValue());
+            holder.value.setBackgroundColor(fragmentData.getValueTextColor());
+            holder.value.setMovementMethod(new ScrollingMovementMethod());
         }
 
         @Override

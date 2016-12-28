@@ -8,6 +8,7 @@ import jagerfield.permissions.DeviceData.Properties.DeviceUtilData;
 import jagerfield.permissions.DeviceData.Properties.MemoryUtilData;
 import jagerfield.permissions.DeviceData.Properties.NetworkUtilData;
 import jagerfield.permissions.DeviceData.Properties.PropertyModel;
+import jagerfield.utilities.R;
 
 public class Utilities
 {
@@ -58,30 +59,38 @@ public class Utilities
         }
     }
 
-    public ArrayList<PropertyModel> getFragmentPropertiesList (String title, Activity activity)
+    public FragmentData getFragmentData(String title, Activity activity)
     {
-        ArrayList<PropertyModel> propertiesList = new ArrayList<>();
+        FragmentData fragmentData = new FragmentData(activity);
 
         switch(title)
         {
             case Utilities.MEMORY_INFO_TAB:
-                propertiesList = MemoryUtilData.getInstance().getDeviceMemoryProperties(activity);
+                fragmentData.propertiesList = MemoryUtilData.getInstance().getDeviceMemoryProperties(activity);
+                fragmentData.valueTextColor = activity.getResources().getColor(R.color.blue_grey_800_50p);
+
                 break;
 
             case Utilities.NETWORK_INFO_TITLE:
-                propertiesList = NetworkUtilData.getInstance().getDeviceNetworkProperties(activity);
+                fragmentData.propertiesList = NetworkUtilData.getInstance().getDeviceNetworkProperties(activity);
+                fragmentData.valueTextColor = activity.getResources().getColor(R.color.smokey_vblue);
                 break;
 
             case Utilities.DEVIS_INFO_TITLE:
-                propertiesList = DeviceUtilData.getInstance().getDeviceProperties(activity);
+                fragmentData.propertiesList = DeviceUtilData.getInstance().getDeviceProperties(activity);
+                fragmentData.valueTextColor = activity.getResources().getColor(R.color.smokey_green);
                 break;
 
             case Utilities.BATTERY_INFO_TITLE:
-                propertiesList = BatteryUtilData.getInstance().getDeviceBatteryProperties(activity);
+                fragmentData.propertiesList = BatteryUtilData.getInstance().getDeviceBatteryProperties(activity);
+                fragmentData.valueTextColor = activity.getResources().getColor(R.color.smokey_reddish_orange);
+                break;
+            default:
+
                 break;
         }
 
-        return propertiesList;
+        return fragmentData;
     }
 
     public void addProperty(ArrayList<PropertyModel> properties, String name, String value, String suffex)
@@ -266,5 +275,34 @@ public class Utilities
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public class FragmentData
+    {
+        private int valueTextColor = -1;
+        private ArrayList<PropertyModel> propertiesList = new ArrayList<>();
+
+        public FragmentData(Activity activity)
+        {
+            valueTextColor = activity.getResources().getColor(R.color.smokey_sand);
+        }
+
+        public ArrayList<PropertyModel> getPropertiesList() {
+            return propertiesList;
+        }
+
+        public void setPropertiesList(ArrayList<PropertyModel> propertiesList) {
+            this.propertiesList = propertiesList;
+        }
+
+        public int getValueTextColor() {
+            return valueTextColor;
+        }
+
+        public void setValueTextColor(int valueTextColor)
+        {
+            this.valueTextColor = valueTextColor;
+        }
+
     }
 }

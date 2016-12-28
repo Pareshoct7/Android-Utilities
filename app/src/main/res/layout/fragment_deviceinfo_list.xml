@@ -6,6 +6,5 @@
     android:name="com.example.sense.myapplication.ItemFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
+    android:padding ="4dp"
     app:layoutManager="GridLayoutManager" />
