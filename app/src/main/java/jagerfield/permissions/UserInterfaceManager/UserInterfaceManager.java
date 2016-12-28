@@ -1,6 +1,5 @@
 package jagerfield.permissions.UserInterfaceManager;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -12,11 +11,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import java.util.ArrayList;
 import jagerfield.library.AppUtilities;
-import jagerfield.library.NetworkUtil.NetworkUtil;
 import jagerfield.library.PermissionsUtil.PermissionsUtil;
 import jagerfield.library.PermissionsUtil.Results.ICheckPermissionResult;
 import jagerfield.permissions.MainActivity;
-import jagerfield.permissions.Utilities.C;
+import jagerfield.permissions.Utilities.Utilities;
 import jagerfield.utilities.R;
 
 
@@ -82,7 +80,7 @@ public class UserInterfaceManager
     {
         PermissionsUtil permissionsUtil = AppUtilities.getPermissionUtil(mainActivity);
 
-        ICheckPermissionResult result = permissionsUtil.checkPermissionsResults(C.PERMISSIONS_ARRAY);
+        ICheckPermissionResult result = permissionsUtil.checkPermissionsResults(Utilities.PERMISSIONS_ARRAY);
 
         if (result.arePermissionsGranted())
         {
@@ -90,7 +88,7 @@ public class UserInterfaceManager
         }
         else
         {
-            permissionsUtil.makePermissionsRequests(C.PERMISSIONS_ARRAY);
+            permissionsUtil.makePermissionsRequests(Utilities.PERMISSIONS_ARRAY);
         }
     }
 

@@ -3,8 +3,8 @@ package jagerfield.permissions.DeviceData.Properties;
 import android.app.Activity;
 import java.util.ArrayList;
 import jagerfield.library.NetworkUtil.NetworkUtil;
-import jagerfield.permissions.DeviceData.Utilities;
-import jagerfield.permissions.Fragments.DevicePropertiesModel;
+import jagerfield.permissions.Fragments.PropertyModel;
+import jagerfield.permissions.Utilities.Utilities;
 
 public class NetworkUtilData
 {
@@ -19,9 +19,9 @@ public class NetworkUtilData
         return networkUtilData;
     }
 
-    public ArrayList<DevicePropertiesModel> getDeviceNetworkProperties(Activity activity)
+    public ArrayList<PropertyModel> getDeviceNetworkProperties(Activity activity)
     {
-        ArrayList<DevicePropertiesModel> properties = new ArrayList<>();
+        ArrayList<PropertyModel> properties = new ArrayList<>();
         NetworkUtil networkUtil = NetworkUtil.getInstance();
         Utilities utilities = Utilities.getInstance();
 

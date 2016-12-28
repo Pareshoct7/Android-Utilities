@@ -216,7 +216,7 @@ public class NetworkUtil
     {
         if(!PermissionsUtil.getInstance(activity).isPermissionGranted(Manifest.permission.ACCESS_WIFI_STATE))
         {
-            Toast.makeText(activity, "ACCESS_WIFI_STATE permission is not provided", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, "Missing permission ACCESS_WIFI_STATE", Toast.LENGTH_SHORT).show();
             return false;
         }
 
@@ -255,7 +255,7 @@ public class NetworkUtil
     {
         if(!PermissionsUtil.getInstance(activity).isPermissionGranted(Manifest.permission.READ_PHONE_STATE))
         {
-            Toast.makeText(activity, "READ_PHONE_STATE permission is not provided", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, "Missing permission READ_PHONE_STATE", Toast.LENGTH_SHORT).show();
             return "Missing permission READ_PHONE_STATE";
         }
 
@@ -267,7 +267,7 @@ public class NetworkUtil
     {
         if(!PermissionsUtil.getInstance(activity).isPermissionGranted(Manifest.permission.READ_PHONE_STATE))
         {
-            Toast.makeText(activity, "READ_PHONE_STATE permission is not provided", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, "Missing permission  READ_PHONE_STATE", Toast.LENGTH_SHORT).show();
             return "Missing permission READ_PHONE_STATE";
         }
 
@@ -293,7 +293,7 @@ public class NetworkUtil
     {
         if(!PermissionsUtil.getInstance(activity).isPermissionGranted(Manifest.permission.READ_PHONE_STATE))
         {
-            Toast.makeText(activity, "READ_PHONE_STATE permission is not provided", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, "Missing permission READ_PHONE_STATE", Toast.LENGTH_SHORT).show();
             return "Missing permission READ_PHONE_STATE";
         }
 
@@ -318,7 +318,7 @@ public class NetworkUtil
     {
         if(!PermissionsUtil.getInstance(activity).isPermissionGranted(Manifest.permission.READ_PHONE_STATE))
         {
-            Toast.makeText(activity, "READ_PHONE_STATE permission is not provided", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, "Missing permission READ_PHONE_STATE", Toast.LENGTH_SHORT).show();
             return "Missing permission READ_PHONE_STATE";
         }
 
@@ -336,7 +336,7 @@ public class NetworkUtil
     {
         if(!PermissionsUtil.getInstance(activity).isPermissionGranted(Manifest.permission.BLUETOOTH))
         {
-            Toast.makeText(activity, "BLUETOOTH permission is not provided", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, "Missing permission BLUETOOTH", Toast.LENGTH_SHORT).show();
             return "Missing permission BLUETOOTH";
         }
 
@@ -358,7 +358,7 @@ public class NetworkUtil
     {
         if(!PermissionsUtil.getInstance(activity).isPermissionGranted(Manifest.permission.ACCESS_WIFI_STATE))
         {
-            Toast.makeText(activity, "ACCESS_WIFI_STATE permission is not provided", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, "Missing permission ACCESS_WIFI_STATE", Toast.LENGTH_SHORT).show();
             return "Missing permission ACCESS_WIFI_STATE";
         }
 

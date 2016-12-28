@@ -1,7 +1,7 @@
 package jagerfield.permissions.Fragments;
 
 
-public class DevicePropertiesModel
+public class PropertyModel
 {
     private String propertyType = "";
     private String value = "";

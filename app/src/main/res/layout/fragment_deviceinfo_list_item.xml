@@ -49,12 +49,12 @@
                 android:layout_weight="5"
                 android:background="@color/blue_grey_800_50p"
                 android:gravity="center"
-                android:minHeight="16dp"
+                android:minHeight="30dp"
                 android:padding="8dp"
                 android:text="Property Vlaue"
                 android:textStyle="bold"
                 android:textSize="12sp"
-                android:maxLines="2"/>
+                android:maxLines="1"/>
 
         </LinearLayout>
 

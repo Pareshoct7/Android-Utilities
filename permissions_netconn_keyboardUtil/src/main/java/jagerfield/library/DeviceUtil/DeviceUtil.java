@@ -21,9 +21,15 @@ import java.io.File;
 import java.util.Locale;
 
 import jagerfield.library.C;
+import jagerfield.library.NetworkUtil.NetworkUtil;
 
 public class DeviceUtil
 {
+    public static DeviceUtil getInstance()
+    {
+        return new DeviceUtil();
+    }
+
     public final String getDeviceName()
     {
         String manufacturer = Build.MANUFACTURER;
@@ -146,12 +152,15 @@ public class DeviceUtil
         int height = 0;
         WindowManager wm = (WindowManager) activity.getSystemService(Activity.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
-        if (Build.VERSION.SDK_INT > 12) {
+        if (Build.VERSION.SDK_INT > 12)
+        {
             Point size = new Point();
             display.getSize(size);
             height = size.y;
-        } else {
-            height = display.getHeight();  // deprecated
+        }
+        else
+        {
+            height = display.getHeight();
         }
         return height;
     }

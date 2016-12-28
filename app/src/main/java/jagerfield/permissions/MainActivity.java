@@ -11,16 +11,14 @@ import android.support.v7.widget.Toolbar;
 import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import jagerfield.library.AppUtilities;
-import jagerfield.library.NetworkUtil.NetworkUtil;
 import jagerfield.library.PermissionsUtil.PermissionsUtil;
 import jagerfield.library.PermissionsUtil.Results.ICheckPermissionResult;
 import jagerfield.permissions.DeviceData.Properties.MemoryUtilData;
 import jagerfield.permissions.DeviceData.Properties.NetworkUtilData;
-import jagerfield.permissions.Fragments.DevicePropertiesModel;
-import jagerfield.permissions.Fragments.MemoryInfoFragment;
+import jagerfield.permissions.Fragments.PropertyModel;
+import jagerfield.permissions.Fragments.ShowInfoFragment;
 import jagerfield.permissions.Fragments.PermissionsFragment;
-import jagerfield.permissions.UserInterfaceManager.UserInterfaceManager;
-import jagerfield.permissions.Utilities.C;
+import jagerfield.permissions.Utilities.Utilities;
 import jagerfield.utilities.R;
 
 public class MainActivity extends AppCompatActivity
@@ -50,7 +48,7 @@ public class MainActivity extends AppCompatActivity
         if (requestCode == permissionsUtil.getPermissionsReqFlag())
         {
             ICheckPermissionResult result = null;
-            result = permissionsUtil.checkPermissionsResults(C.PERMISSIONS_ARRAY);
+            result = permissionsUtil.checkPermissionsResults(Utilities.PERMISSIONS_ARRAY);
             if (result == null)
             {
                 return;
@@ -69,9 +67,9 @@ public class MainActivity extends AppCompatActivity
     {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        viewPagerAdapter.addTab(C.PERMISSIONS_TAB, new PermissionsFragment());
-        viewPagerAdapter.addTab(C.MEMORY_INFO_TAB, new MemoryInfoFragment());
-        viewPagerAdapter.addTab(C.Network_INFO_TAB, new MemoryInfoFragment());
+        viewPagerAdapter.addTab(Utilities.PERMISSIONS_TAB, new PermissionsFragment());
+        viewPagerAdapter.addTab(Utilities.MEMORY_INFO_TAB, ShowInfoFragment.newInstance(Utilities.MEMORY_INFO_TAB));
+        viewPagerAdapter.addTab(Utilities.Network_INFO_TAB, ShowInfoFragment.newInstance(Utilities.Network_INFO_TAB));
 
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
@@ -88,32 +86,6 @@ public class MainActivity extends AppCompatActivity
         @Override
         public Fragment getItem(int position)
         {
-            final String title = (String) getPageTitle(position);
-            ArrayList<DevicePropertiesModel> propertiesList = null;
-
-            switch(title)
-            {
-                case C.PERMISSIONS_TAB:
-                break;
-
-                case C.MEMORY_INFO_TAB:
-                    propertiesList = MemoryUtilData.getInstance().getDeviceMemoryProperties(MainActivity.this);
-                break;
-
-                case C.Network_INFO_TAB:
-                    propertiesList = NetworkUtilData.getInstance().getDeviceNetworkProperties(MainActivity.this);
-                    break;
-            }
-
-            if (propertiesList==null)
-            {
-                propertiesList = new ArrayList<>();
-            }
-
-            /**
-             * Post the porpertiesList to the fragment with a sticky post to wait till the fragment is created
-             */
-            EventBus.getDefault().postSticky(propertiesList);
             return fragmentList.get(position).fragment;
         }
 

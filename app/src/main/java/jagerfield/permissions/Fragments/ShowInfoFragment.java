@@ -13,15 +13,31 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
+
+import jagerfield.permissions.DeviceData.Properties.MemoryUtilData;
+import jagerfield.permissions.DeviceData.Properties.NetworkUtilData;
+import jagerfield.permissions.MainActivity;
+import jagerfield.permissions.Utilities.Utilities;
 import jagerfield.utilities.R;
 
-public class MemoryInfoFragment extends Fragment
+public class ShowInfoFragment extends Fragment
 {
+    private String title;
     private RecyclerView recyclerView;
+    private DeviceInfoListViewAdapter adapter;
 
-    public MemoryInfoFragment()
+    public ShowInfoFragment()
     {
         // Required empty public constructor
+    }
+
+    public static ShowInfoFragment newInstance(String title)
+    {
+        ShowInfoFragment fragment = new ShowInfoFragment();
+        Bundle args = new Bundle();
+        args.putString(Utilities.FRAGMENT_TITLE, title);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -31,27 +47,27 @@ public class MemoryInfoFragment extends Fragment
         View view = inflater.inflate(R.layout.fragment_deviceinfo_list, container, false);
         Context context = view.getContext();
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.deviceInfolist);
-        recyclerView.setLayoutManager(new GridLayoutManager(context, 2));
+        String title = "";
+        ArrayList<PropertyModel> propertiesList = null;
 
-        return view;
-    }
-
-    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
-    public void onGreenRobotEvent(ArrayList<DevicePropertiesModel> propertiesList)
-    {
-        /*
-         * Posted from : MainActivity - public class ViewPagerAdapter
-         */
-
-        EventBus.getDefault().removeStickyEvent(DevicePropertiesModel.class);
-
-        if (propertiesList == null)
+        if (getArguments() != null)
         {
-            return;
+            title = getArguments().getString(Utilities.FRAGMENT_TITLE);
+            propertiesList = Utilities.getInstance().getFragmentPropertiesList(title, getActivity());
         }
 
-        recyclerView.setAdapter(new DeviceInfoListViewAdapter(this, propertiesList));
+        if (propertiesList==null)
+        {
+            propertiesList = new ArrayList<>();
+        }
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.deviceInfolist);
+        recyclerView.setLayoutManager(new GridLayoutManager(context, 2));
+        adapter = new DeviceInfoListViewAdapter(propertiesList);
+
+        recyclerView.setAdapter(adapter);
+
+        return view;
     }
 
     @Override
@@ -80,14 +96,10 @@ public class MemoryInfoFragment extends Fragment
      */
     private class DeviceInfoListViewAdapter extends RecyclerView.Adapter<DeviceInfoListViewAdapter.ViewHolder>
     {
-        private MemoryInfoFragment fragment;
-        private Context context;
-        private ArrayList<DevicePropertiesModel> itemsList = new ArrayList<>();
+        private ArrayList<PropertyModel> itemsList = new ArrayList<>();
 
-        public DeviceInfoListViewAdapter(MemoryInfoFragment fragment, ArrayList<DevicePropertiesModel> itemsList)
+        public DeviceInfoListViewAdapter(ArrayList<PropertyModel> itemsList)
         {
-            this.fragment = fragment;
-            context = fragment.getActivity();
             this.itemsList = itemsList;
         }
 
@@ -115,7 +127,7 @@ public class MemoryInfoFragment extends Fragment
             public final View hView;
             public final TextView propertyType;
             public final TextView value;
-            public DevicePropertiesModel vhObject;
+            public PropertyModel vhObject;
 
             public ViewHolder(View view)
             {
@@ -124,6 +136,12 @@ public class MemoryInfoFragment extends Fragment
                 propertyType = (TextView) view.findViewById(R.id.propertyType);
                 value = (TextView) view.findViewById(R.id.propertyValue);
             }
+        }
+
+        public void updateItemList(ArrayList<PropertyModel> list)
+        {
+            itemsList = list;
+            notifyDataSetChanged();
         }
     }
 }

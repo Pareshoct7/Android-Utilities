@@ -5,9 +5,15 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
 import jagerfield.library.C;
+import jagerfield.library.DeviceUtil.DeviceUtil;
 
 public class BatteryUtil
 {
+    public static BatteryUtil getInstance()
+    {
+        return new BatteryUtil();
+    }
+
     public int getBatteryPercent(Activity activity) {
         Intent intent = getBatteryStatusIntent(activity);
         int rawlevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
