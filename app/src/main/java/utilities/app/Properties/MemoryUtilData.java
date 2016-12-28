@@ -2,7 +2,7 @@ package utilities.app.Properties;
 
 import android.app.Activity;
 import java.util.ArrayList;
-import jagerfield.library.AppUtilities;
+import utilities.lib.AppUtilities;
 import utilities.app.Utilities.Utilities;
 
 public class MemoryUtilData

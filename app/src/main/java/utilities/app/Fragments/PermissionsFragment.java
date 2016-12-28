@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import jagerfield.library.PermissionsUtil.Results.ICheckPermissionResult;
+import utilities.lib.PermissionsUtil.Results.ICheckPermissionResult;
 import utilities.app.MainActivity;
 import utilities.app.UserInterfaceManager.UserInterfaceManager;
 import jagerfield.utilities.R;

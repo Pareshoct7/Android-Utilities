@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Permissions.iml" filepath="$PROJECT_DIR$/Permissions.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/permissions_netconn_keyboardUtil/permissions_netconn_keyboardUtil.iml" filepath="$PROJECT_DIR$/permissions_netconn_keyboardUtil/permissions_netconn_keyboardUtil.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jagerfield.utilities.lib/jagerfield.utilities.lib.iml" filepath="$PROJECT_DIR$/jagerfield.utilities.lib/jagerfield.utilities.lib.iml" />
     </modules>
   </component>
 </project>
