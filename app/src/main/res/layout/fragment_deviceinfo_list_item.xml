@@ -54,7 +54,7 @@
                 android:text="Property Vlaue"
                 android:textStyle="bold"
                 android:textSize="12sp"
-                android:maxLines="1"/>
+                android:maxLines="2"/>
 
         </LinearLayout>
 

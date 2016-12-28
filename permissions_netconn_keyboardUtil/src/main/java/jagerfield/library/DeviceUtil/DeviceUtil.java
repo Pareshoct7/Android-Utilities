@@ -1,5 +1,6 @@
 package jagerfield.library.DeviceUtil;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -12,16 +13,19 @@ import android.os.Build;
 import android.provider.Settings;
 import android.support.annotation.RequiresApi;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.Locale;
 
 import jagerfield.library.C;
 import jagerfield.library.NetworkUtil.NetworkUtil;
+import jagerfield.library.PermissionsUtil.PermissionsUtil;
 
 public class DeviceUtil
 {
@@ -290,7 +294,21 @@ public class DeviceUtil
         Uri URI = Uri.parse("content://com.google.android.gsf.gservices");
         String ID_KEY = "android_id";
         String params[] = {ID_KEY};
-        Cursor c = activity.getContentResolver().query(URI, null, null, params, null);
+
+        Cursor c = null;
+
+        try
+        {
+            c = activity.getContentResolver().query(URI, null, null, params, null);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            Log.i(C.TAG, "Missing permission " + "com.google.android.providers.gsf.permission.READ_GSERVICES");
+            return C.ERROR;
+        }
+
+        if (c==null){return C.ERROR;}
 
         if (!c.moveToFirst() || c.getColumnCount() < 2)
         {

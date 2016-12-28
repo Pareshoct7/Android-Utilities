@@ -5,6 +5,8 @@ import android.app.Activity;
 
 import java.util.ArrayList;
 
+import jagerfield.library.DeviceUtil.DeviceUtil;
+import jagerfield.permissions.DeviceData.Properties.DeviceUtilData;
 import jagerfield.permissions.DeviceData.Properties.MemoryUtilData;
 import jagerfield.permissions.DeviceData.Properties.NetworkUtilData;
 import jagerfield.permissions.Fragments.PropertyModel;
@@ -15,6 +17,7 @@ public class Utilities
     public static final String PERMISSIONS_TAB = "Permissions";
     public static final String MEMORY_INFO_TAB = "Memory Info";
     public static final String Network_INFO_TAB = "Network Info";
+    public static final String Device_INFO_TAB = "Device Info";
 
     public static final String FRAGMENT_TITLE = "FRAGMENT_TITLE";
 
@@ -23,7 +26,6 @@ public class Utilities
             Manifest.permission.RECORD_AUDIO,
             Manifest.permission.READ_PHONE_STATE,
             Manifest.permission.ACCESS_WIFI_STATE
-
     };
 
 
@@ -70,6 +72,10 @@ public class Utilities
 
             case Utilities.Network_INFO_TAB:
                 propertiesList = NetworkUtilData.getInstance().getDeviceNetworkProperties(activity);
+                break;
+
+            case Utilities.Device_INFO_TAB:
+                propertiesList = DeviceUtilData.getInstance().getDeviceProperties(activity);
                 break;
         }
 

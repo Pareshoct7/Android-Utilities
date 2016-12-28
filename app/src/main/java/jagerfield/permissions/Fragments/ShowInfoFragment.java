@@ -9,14 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
-
-import jagerfield.permissions.DeviceData.Properties.MemoryUtilData;
-import jagerfield.permissions.DeviceData.Properties.NetworkUtilData;
-import jagerfield.permissions.MainActivity;
 import jagerfield.permissions.Utilities.Utilities;
 import jagerfield.utilities.R;
 
@@ -27,9 +20,7 @@ public class ShowInfoFragment extends Fragment
     private DeviceInfoListViewAdapter adapter;
 
     public ShowInfoFragment()
-    {
-        // Required empty public constructor
-    }
+    {    }
 
     public static ShowInfoFragment newInstance(String title)
     {
@@ -43,7 +34,6 @@ public class ShowInfoFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_deviceinfo_list, container, false);
         Context context = view.getContext();
 
@@ -68,27 +58,6 @@ public class ShowInfoFragment extends Fragment
         recyclerView.setAdapter(adapter);
 
         return view;
-    }
-
-    @Override
-    public void onStart()
-    {
-        super.onStart();
-
-        try
-        {
-            EventBus.getDefault().register(this);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onDestroyView()
-    {
-        super.onDestroyView();
-        EventBus.getDefault().unregister(this);
     }
 
     /**
@@ -138,11 +107,6 @@ public class ShowInfoFragment extends Fragment
             }
         }
 
-        public void updateItemList(ArrayList<PropertyModel> list)
-        {
-            itemsList = list;
-            notifyDataSetChanged();
-        }
     }
 }
 

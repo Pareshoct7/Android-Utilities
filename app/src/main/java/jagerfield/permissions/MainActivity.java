@@ -13,9 +13,6 @@ import java.util.ArrayList;
 import jagerfield.library.AppUtilities;
 import jagerfield.library.PermissionsUtil.PermissionsUtil;
 import jagerfield.library.PermissionsUtil.Results.ICheckPermissionResult;
-import jagerfield.permissions.DeviceData.Properties.MemoryUtilData;
-import jagerfield.permissions.DeviceData.Properties.NetworkUtilData;
-import jagerfield.permissions.Fragments.PropertyModel;
 import jagerfield.permissions.Fragments.ShowInfoFragment;
 import jagerfield.permissions.Fragments.PermissionsFragment;
 import jagerfield.permissions.Utilities.Utilities;
@@ -67,9 +64,10 @@ public class MainActivity extends AppCompatActivity
     {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        viewPagerAdapter.addTab(Utilities.PERMISSIONS_TAB, new PermissionsFragment());
-        viewPagerAdapter.addTab(Utilities.MEMORY_INFO_TAB, ShowInfoFragment.newInstance(Utilities.MEMORY_INFO_TAB));
-        viewPagerAdapter.addTab(Utilities.Network_INFO_TAB, ShowInfoFragment.newInstance(Utilities.Network_INFO_TAB));
+//        viewPagerAdapter.addTab(Utilities.PERMISSIONS_TAB, new PermissionsFragment());
+//        viewPagerAdapter.addTab(Utilities.MEMORY_INFO_TAB, ShowInfoFragment.newInstance(Utilities.MEMORY_INFO_TAB));
+//        viewPagerAdapter.addTab(Utilities.Network_INFO_TAB, ShowInfoFragment.newInstance(Utilities.Network_INFO_TAB));
+        viewPagerAdapter.addTab(Utilities.Device_INFO_TAB, ShowInfoFragment.newInstance(Utilities.Device_INFO_TAB));
 
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);

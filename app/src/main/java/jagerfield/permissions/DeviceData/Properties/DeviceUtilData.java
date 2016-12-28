@@ -91,9 +91,9 @@ public class DeviceUtilData
 
         utilities.addProperty(properties, "User Agent", deviceUtil.getUserAgent(activity));
 
-        utilities.addProperty(properties, "GSF Id", deviceUtil.getGSFId(activity));
-
         utilities.addProperty(properties, "Is App Installed", deviceUtil.isAppInstalled(deviceUtil.getPackageName(activity), activity));
+
+        utilities.addProperty(properties, "GSF Id", deviceUtil.getGSFId(activity));
 
         return properties;
     }

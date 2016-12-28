@@ -39,6 +39,7 @@ public class C
     public static final String NETWORK_TYPE_3G = "3G";
     public static final String NETWORK_TYPE_4G = "4G";
     public static final String NOT_FOUND_VAL = "NOT_FOUND_VAL";
+    public static final String ERROR = "ERROR";
     public static final String NETWORK_TYPE_WIFI_WIFIMAX = "WiFi";
 
 }
