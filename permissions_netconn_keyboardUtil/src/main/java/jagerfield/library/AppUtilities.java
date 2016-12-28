@@ -3,6 +3,7 @@ package jagerfield.library;
 
 import android.app.Activity;
 
+import jagerfield.library.BatteryUtil.BatteryUtil;
 import jagerfield.library.DeviceUtil.DeviceUtil;
 import jagerfield.library.MemoryUtil.MemoryUtil;
 import jagerfield.library.NetworkUtil.NetworkUtil;
@@ -34,6 +35,11 @@ public class AppUtilities
     public static DeviceUtil getDeviceUtil()
     {
         return DeviceUtil.getInstance();
+    }
+
+    public static BatteryUtil getDBatteryUtil()
+    {
+        return BatteryUtil.getInstance();
     }
 
 

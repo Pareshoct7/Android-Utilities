@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import java.util.ArrayList;
+
+import jagerfield.permissions.DeviceData.Properties.PropertyModel;
 import jagerfield.permissions.Utilities.Utilities;
 import jagerfield.utilities.R;
 

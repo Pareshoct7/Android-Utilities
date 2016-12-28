@@ -3,7 +3,6 @@ package jagerfield.permissions.DeviceData.Properties;
 import android.app.Activity;
 import java.util.ArrayList;
 import jagerfield.library.AppUtilities;
-import jagerfield.permissions.Fragments.PropertyModel;
 import jagerfield.permissions.Utilities.Utilities;
 
 public class DeviceUtilData

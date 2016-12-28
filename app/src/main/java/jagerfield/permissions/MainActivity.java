@@ -64,10 +64,11 @@ public class MainActivity extends AppCompatActivity
     {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        viewPagerAdapter.addTab(Utilities.PERMISSIONS_TAB, new PermissionsFragment());
+        viewPagerAdapter.addTab(Utilities.PERMISSIONS_TITLE, new PermissionsFragment());
         viewPagerAdapter.addTab(Utilities.MEMORY_INFO_TAB, ShowInfoFragment.newInstance(Utilities.MEMORY_INFO_TAB));
-        viewPagerAdapter.addTab(Utilities.Network_INFO_TAB, ShowInfoFragment.newInstance(Utilities.Network_INFO_TAB));
-        viewPagerAdapter.addTab(Utilities.Device_INFO_TAB, ShowInfoFragment.newInstance(Utilities.Device_INFO_TAB));
+        viewPagerAdapter.addTab(Utilities.NETWORK_INFO_TITLE, ShowInfoFragment.newInstance(Utilities.NETWORK_INFO_TITLE));
+        viewPagerAdapter.addTab(Utilities.DEVIS_INFO_TITLE, ShowInfoFragment.newInstance(Utilities.DEVIS_INFO_TITLE));
+        viewPagerAdapter.addTab(Utilities.BATTERY_INFO_TITLE, ShowInfoFragment.newInstance(Utilities.BATTERY_INFO_TITLE));
 
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);

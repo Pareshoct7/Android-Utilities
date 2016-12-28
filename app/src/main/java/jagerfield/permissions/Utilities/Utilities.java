@@ -2,22 +2,20 @@ package jagerfield.permissions.Utilities;
 
 import android.Manifest;
 import android.app.Activity;
-
 import java.util.ArrayList;
-
-import jagerfield.library.DeviceUtil.DeviceUtil;
+import jagerfield.permissions.DeviceData.Properties.BatteryUtilData;
 import jagerfield.permissions.DeviceData.Properties.DeviceUtilData;
 import jagerfield.permissions.DeviceData.Properties.MemoryUtilData;
 import jagerfield.permissions.DeviceData.Properties.NetworkUtilData;
-import jagerfield.permissions.Fragments.PropertyModel;
-import jagerfield.permissions.MainActivity;
+import jagerfield.permissions.DeviceData.Properties.PropertyModel;
 
 public class Utilities
 {
-    public static final String PERMISSIONS_TAB = "Permissions";
+    public static final String PERMISSIONS_TITLE = "Permissions";
     public static final String MEMORY_INFO_TAB = "Memory Info";
-    public static final String Network_INFO_TAB = "Network Info";
-    public static final String Device_INFO_TAB = "Device Info";
+    public static final String NETWORK_INFO_TITLE = "Network Info";
+    public static final String DEVIS_INFO_TITLE = "Device Info";
+    public static final String BATTERY_INFO_TITLE = "Battery Info";
 
     public static final String FRAGMENT_TITLE = "FRAGMENT_TITLE";
 
@@ -70,12 +68,16 @@ public class Utilities
                 propertiesList = MemoryUtilData.getInstance().getDeviceMemoryProperties(activity);
                 break;
 
-            case Utilities.Network_INFO_TAB:
+            case Utilities.NETWORK_INFO_TITLE:
                 propertiesList = NetworkUtilData.getInstance().getDeviceNetworkProperties(activity);
                 break;
 
-            case Utilities.Device_INFO_TAB:
+            case Utilities.DEVIS_INFO_TITLE:
                 propertiesList = DeviceUtilData.getInstance().getDeviceProperties(activity);
+                break;
+
+            case Utilities.BATTERY_INFO_TITLE:
+                propertiesList = BatteryUtilData.getInstance().getDeviceBatteryProperties(activity);
                 break;
         }
 
@@ -152,6 +154,50 @@ public class Utilities
             String str = String.valueOf(value);
             char c = Character.toUpperCase(str.charAt(0));
             str = str.replaceFirst(Character.toString(str.charAt(0)), Character.toString(c));
+
+            property.setValue(str);
+            properties.add(property);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addProperty(ArrayList<PropertyModel> properties, String name, float value)
+    {
+        if (name == null || name.isEmpty())
+        {
+            return;
+        }
+
+        PropertyModel property = new PropertyModel();
+        property.setPropertyType(name);
+
+        try
+        {
+            String str = String.valueOf(value);
+
+            property.setValue(str);
+            properties.add(property);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addProperty(ArrayList<PropertyModel> properties, String name, int value)
+    {
+        if (name == null || name.isEmpty())
+        {
+            return;
+        }
+
+        PropertyModel property = new PropertyModel();
+        property.setPropertyType(name);
+
+        try
+        {
+            String str = String.valueOf(value);
 
             property.setValue(str);
             properties.add(property);

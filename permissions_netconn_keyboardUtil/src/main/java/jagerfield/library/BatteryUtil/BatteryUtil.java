@@ -14,7 +14,8 @@ public class BatteryUtil
         return new BatteryUtil();
     }
 
-    public int getBatteryPercent(Activity activity) {
+    public int getBatteryPercent(Activity activity)
+    {
         Intent intent = getBatteryStatusIntent(activity);
         int rawlevel = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
         int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
