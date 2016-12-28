@@ -1,4 +1,4 @@
-package jagerfield.permissions.UserInterfaceManager;
+package utilities.app.UserInterfaceManager;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import jagerfield.library.AppUtilities;
 import jagerfield.library.PermissionsUtil.PermissionsUtil;
 import jagerfield.library.PermissionsUtil.Results.ICheckPermissionResult;
-import jagerfield.permissions.MainActivity;
-import jagerfield.permissions.Utilities.Utilities;
+import utilities.app.MainActivity;
+import utilities.app.Utilities.Utilities;
 import jagerfield.utilities.R;
 
 

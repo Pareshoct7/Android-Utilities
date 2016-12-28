@@ -1,13 +1,13 @@
-package jagerfield.permissions.Utilities;
+package utilities.app.Utilities;
 
 import android.Manifest;
 import android.app.Activity;
 import java.util.ArrayList;
-import jagerfield.permissions.DeviceData.Properties.BatteryUtilData;
-import jagerfield.permissions.DeviceData.Properties.DeviceUtilData;
-import jagerfield.permissions.DeviceData.Properties.MemoryUtilData;
-import jagerfield.permissions.DeviceData.Properties.NetworkUtilData;
-import jagerfield.permissions.DeviceData.Properties.PropertyModel;
+import utilities.app.Properties.BatteryUtilData;
+import utilities.app.Properties.DeviceUtilData;
+import utilities.app.Properties.MemoryUtilData;
+import utilities.app.Properties.NetworkUtilData;
+import utilities.app.Properties.PropertyModel;
 import jagerfield.utilities.R;
 
 public class Utilities

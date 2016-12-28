@@ -1,4 +1,4 @@
-package jagerfield.permissions;
+package utilities.app;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import jagerfield.library.AppUtilities;
 import jagerfield.library.PermissionsUtil.PermissionsUtil;
 import jagerfield.library.PermissionsUtil.Results.ICheckPermissionResult;
-import jagerfield.permissions.Fragments.ShowInfoFragment;
-import jagerfield.permissions.Fragments.PermissionsFragment;
-import jagerfield.permissions.Utilities.Utilities;
+import utilities.app.Fragments.ShowInfoFragment;
+import utilities.app.Fragments.PermissionsFragment;
+import utilities.app.Utilities.Utilities;
 import jagerfield.utilities.R;
 
 public class MainActivity extends AppCompatActivity

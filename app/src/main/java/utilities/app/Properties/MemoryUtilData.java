@@ -1,9 +1,9 @@
-package jagerfield.permissions.DeviceData.Properties;
+package utilities.app.Properties;
 
 import android.app.Activity;
 import java.util.ArrayList;
 import jagerfield.library.AppUtilities;
-import jagerfield.permissions.Utilities.Utilities;
+import utilities.app.Utilities.Utilities;
 
 public class MemoryUtilData
 {

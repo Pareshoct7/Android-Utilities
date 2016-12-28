@@ -1,4 +1,4 @@
-package jagerfield.permissions.Fragments;
+package utilities.app.Fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import java.util.ArrayList;
 
-import jagerfield.permissions.DeviceData.Properties.PropertyModel;
-import jagerfield.permissions.Utilities.Utilities;
+import utilities.app.Properties.PropertyModel;
+import utilities.app.Utilities.Utilities;
 import jagerfield.utilities.R;
 
 public class ShowInfoFragment extends Fragment

@@ -1,4 +1,4 @@
-package jagerfield.permissions.DeviceData.Properties;
+package utilities.app.Properties;
 
 
 public class PropertyModel

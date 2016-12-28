@@ -1,4 +1,4 @@
-package jagerfield.permissions.Fragments;
+package utilities.app.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,8 +9,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import jagerfield.library.PermissionsUtil.Results.ICheckPermissionResult;
-import jagerfield.permissions.MainActivity;
-import jagerfield.permissions.UserInterfaceManager.UserInterfaceManager;
+import utilities.app.MainActivity;
+import utilities.app.UserInterfaceManager.UserInterfaceManager;
 import jagerfield.utilities.R;
 
 

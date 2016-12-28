@@ -1,4 +1,4 @@
-package jagerfield.permissions;
+package utilities.app;
 
 import org.junit.Test;
 
