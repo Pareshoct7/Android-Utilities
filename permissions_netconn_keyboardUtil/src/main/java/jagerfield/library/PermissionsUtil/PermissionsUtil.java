@@ -3,9 +3,7 @@ package jagerfield.library.PermissionsUtil;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.widget.Toast;
 import java.util.ArrayList;
 import jagerfield.library.C;
 import jagerfield.library.PermissionsUtil.Results.ICheckPermissionResult;
@@ -35,7 +33,7 @@ public class PermissionsUtil
     {
         if (permissionsItem==null || permissionsItem.isEmpty() )
         {
-            Toast.makeText(activity, "The given permission request is incorrect", Toast.LENGTH_SHORT).show();
+            Log.i(C.TAG, "The given permission item is incorrect");
             return;
         }
 
@@ -51,7 +49,7 @@ public class PermissionsUtil
 
         if (permissionsArray==null || permissionsArray.length==0)
         {
-            Toast.makeText(activity, "The given permission request is incorrect", Toast.LENGTH_SHORT).show();
+            Log.i(C.TAG, "The given permission request is incorrect");
             return;
         }
 
@@ -106,7 +104,6 @@ public class PermissionsUtil
 
         if (!result)
         {
-            Toast.makeText(activity, permission + msg, Toast.LENGTH_SHORT).show();
             Log.e(C.TAG, permission + " is not available");
         }
 

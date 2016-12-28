@@ -15,9 +15,7 @@ import jagerfield.library.NetworkUtil.NetworkUtil;
 public class MemoryUtil
 {
     public MemoryUtil()
-    {
-
-    }
+    { }
 
     public static MemoryUtil getInstance()
     {

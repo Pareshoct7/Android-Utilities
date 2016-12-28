@@ -1,6 +1,5 @@
 package jagerfield.library.DeviceUtil;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -18,14 +17,10 @@ import android.view.Display;
 import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.Toast;
-
 import java.io.File;
 import java.util.Locale;
-
 import jagerfield.library.C;
-import jagerfield.library.NetworkUtil.NetworkUtil;
-import jagerfield.library.PermissionsUtil.PermissionsUtil;
+
 
 public class DeviceUtil
 {
