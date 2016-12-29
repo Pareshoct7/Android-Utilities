@@ -108,17 +108,17 @@ Available functions:
 | Screen Height  | ```getScreenHeight(activity)``` | int |
 | Screen Width   | ```getScreenWidth(activity)``` | int |
 | Version Name   | ```getVersionName(activity)``` | String |
-| Version Code   | ```getVersionCode(activity)``` | String |
+| Version Code   | ```getVersionCode(activity)``` | Integer |
 | Package Name   | ```getPackageName(activity)``` | String |
 | Activity Name  | ```getActivityName(activity)``` | String |
 | App Name  | ```getAppName(activity)``` | String |
-| Is Running On Emulator | ```isRunningOnEmulator()``` | String |
+| Is Running On Emulator | ```isRunningOnEmulator()``` | boolean |
 | Device Ringer Mode  | ```getDeviceRingerMode(activity)``` | String |
-| Is Device Rooted    | ```isDeviceRooted()``` | String |
+| Is Device Rooted    | ```isDeviceRooted()``` | boolean |
 | Android Id   | ```getAndroidId(activity)``` | String |
 | Installation Source | ```getInstallSource(activity)``` | String |
 | User Agent | ```getUserAgent(activity)``` | String |
 | GSF Id | ```getDeviceUtil().getGSFId(activity)``` | String |
-| Is App Installed | ```getDeviceUtil().isAppInstalled(getPackageName(activity), activity))``` | String |
+
 
 
