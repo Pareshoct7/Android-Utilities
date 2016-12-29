@@ -12,7 +12,7 @@ While developing Andorid apps, I gathered the functionalities which were repeate
 | SoftKeyboard|	    | 
 
 
-## Installation
+# Installation
 In the app build.gradle add the following:
   a. Add JitPack repository at the end of repositories 
 
@@ -80,6 +80,7 @@ Available functions:
 Accessing a utility fucntion example:
 ```
 AppUtilities.getDeviceUtil().getDeviceName();
+
 ```
 Available functions:
 
@@ -130,6 +131,7 @@ AppUtilities.getDeviceUtil().getDeviceName();
 
 ```
 Available functions:
+
 | Value         | Function Name | Returns  |
 | :------------- |:-------------| :-----|
 | IMEI      | ```getIMEI(activity)``` | String |
@@ -146,6 +148,9 @@ Available functions:
 | Internet Connection Status      | ```getInternetConnectionStatus(activity)``` | String |
 | Bluetooth MAC    | ```getBluetoothMAC(activity)``` | String |
 | Wifi Mac Address   | ```getWifiMacAddress(activity)``` | String |
+
+
+
 
 
 
